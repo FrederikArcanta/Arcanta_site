@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arcanta — Retail Analytics Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0b0f14;
+      --surface: #0f1620;
+      --surface-2: #151d2a;
+      --border: #1e293b;
+      --text: #e8eef6;
+      --text-muted: #94a3b8;
+      --accent: #e8eef6;
+      --accent-dim: rgba(232, 238, 246, 0.08);
+      --success: #0f766e;
+      --warning: #b45309;
+      --gradient-start: #0b0f14;
+      --gradient-end: #111827;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* --- NAV --- */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(20px);
+      background: rgba(11, 15, 20, 0.8);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.5rem;
+      background: var(--text);
+      color: var(--bg);
+      border: none;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(232, 238, 246, 0.15);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover {
+      background: var(--accent-dim);
+      box-shadow: none;
+    }
+
+    /* --- HERO --- */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+      background: radial-gradient(ellipse at 50% 0%, rgba(30, 41, 59, 0.5) 0%, transparent 60%);
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      background: var(--accent-dim);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .hero-badge .dot {
+      width: 6px;
+      height: 6px;
+      background: var(--success);
+      border-radius: 50%;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      max-width: 800px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 560px;
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      animation: float 2s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
+
+    /* --- SECTION --- */
+    section {
+      padding: 6rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .section-desc {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      line-height: 1.7;
+      margin-bottom: 3rem;
+    }
+
+    /* --- KPI STRIP --- */
+    .kpi-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 6rem;
+    }
+
+    .kpi-item {
+      background: var(--surface);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .kpi-value {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.25rem;
+    }
+
+    .kpi-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* --- FEATURES GRID --- */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .feature-card {
+      background: var(--surface);
+      padding: 2.5rem;
+      transition: background 0.3s;
+    }
+    .feature-card:hover { background: var(--surface-2); }
+
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent-dim);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 1.25rem;
+      font-size: 1.2rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* --- BENTO --- */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .bento-item {
+      background: var(--surface);
+      padding: 2.5rem;
+    }
+    .bento-item.span-2 { grid-column: span 2; }
+
+    .bento-item h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .bento-item p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .bento-visual {
+      margin-top: 1.5rem;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      display: inline-flex;
+      padding: 0.35rem 0.8rem;
+      background: var(--accent-dim);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    /* --- MOCKUP CHART --- */
+    .chart-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      height: 80px;
+      margin-top: 1.5rem;
+    }
+    .chart-bar {
+      flex: 1;
+      background: linear-gradient(to top, rgba(232, 238, 246, 0.06), rgba(232, 238, 246, 0.18));
+      border-radius: 4px 4px 0 0;
+      min-width: 12px;
+    }
+
+    /* --- WORKFLOW --- */
+    .workflow {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .workflow-step {
+      position: relative;
+      padding: 2rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+
+    .workflow-num {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: var(--accent-dim);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .workflow-step h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .workflow-step p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* --- FOOTER --- */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem 2rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    footer .logo { margin-bottom: 0.75rem; }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 768px) {
+      .kpi-strip { grid-template-columns: repeat(2, 1fr); }
+      .features-grid { grid-template-columns: 1fr; }
+      .bento-grid { grid-template-columns: 1fr; }
+      .bento-item.span-2 { grid-column: span 1; }
+      .workflow { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      nav { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">Arcanta</div>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#analytics">Analytics</a></li>
+      <li><a href="#workflow">Hoe het werkt</a></li>
+    </ul>
+    <a href="/" class="btn-cta">Open App &rarr;</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Versie 0.2.0
+    </div>
+    <h1>Inzichten die uw retail&shy;operatie transformeren</h1>
+    <p>Arcanta analyseert uw POS-data en vertaalt het naar bruikbare inzichten — van omzet en klantstromen tot productmix en bezettingsgraad.</p>
+    <div class="hero-actions">
+      <a href="/" class="btn-cta">Start nu &rarr;</a>
+      <a href="#features" class="btn-cta btn-outline">Ontdek meer</a>
+    </div>
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </div>
+  </section>
+
+  <!-- KPI STRIP -->
+  <section>
+    <div class="kpi-strip">
+      <div class="kpi-item">
+        <div class="kpi-value">360&deg;</div>
+        <div class="kpi-label">Compleet overzicht</div>
+      </div>
+      <div class="kpi-item">
+        <div class="kpi-value">3</div>
+        <div class="kpi-label">Talen (NL/EN/FR)</div>
+      </div>
+      <div class="kpi-item">
+        <div class="kpi-value">&infin;</div>
+        <div class="kpi-label">Multi-tenant</div>
+      </div>
+      <div class="kpi-item">
+        <div class="kpi-value">24/7</div>
+        <div class="kpi-label">Altijd beschikbaar</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="section-label">Kernfunctionaliteiten</div>
+    <h2 class="section-title">Alles wat u nodig heeft,<br>op &eacute;&eacute;n plek</h2>
+    <p class="section-desc">Van real-time dashboards tot diepgaande trendanalyses — Arcanta geeft u controle over uw data.</p>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+        </div>
+        <h3>Dashboard</h3>
+        <p>Overzichtelijk dashboard met KPI's: omzet, passages, gemiddelde besteding en meer — alles in &eacute;&eacute;n oogopslag.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3>Trendanalyse</h3>
+        <p>Analyseer patronen in klantstromen, aanwezigheid en bezettingsgraad over tijd — per dag, week of maand.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        </div>
+        <h3>Productanalyse</h3>
+        <p>Bekijk uw productmix, topproducten, omzet per categorie en volume — inzicht in wat het beste verkoopt.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <h3>Data Upload</h3>
+        <p>Upload POS-transacties en aanwezigheidsdata eenvoudig. Automatische validatie en veldmapping inbegrepen.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Datakwaliteit</h3>
+        <p>Automatische monitoring van datakwaliteit. Detecteer anomalie&euml;n en ontbrekende data voordat het uw analyses be&iuml;nvloedt.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        </div>
+        <h3>Configuratie</h3>
+        <p>POS-dictionary, capaciteitsbeheer, bezettingsregels en veldmapping — volledig configureerbaar per locatie.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANALYTICS BENTO -->
+  <section id="analytics">
+    <div class="section-label">Analyse &amp; Inzichten</div>
+    <h2 class="section-title">Data-gedreven beslissingen</h2>
+    <p class="section-desc">Krachtige filters en visualisaties om uw operatie tot in detail te begrijpen.</p>
+
+    <div class="bento-grid">
+      <div class="bento-item span-2">
+        <h3>Omzet &amp; Passages over tijd</h3>
+        <p>Volg uw omzet (excl. BTW) en klantpassages real-time. Vergelijk periodes en ontdek seizoenspatronen.</p>
+        <div class="chart-bars">
+          <div class="chart-bar" style="height:40%"></div>
+          <div class="chart-bar" style="height:65%"></div>
+          <div class="chart-bar" style="height:50%"></div>
+          <div class="chart-bar" style="height:80%"></div>
+          <div class="chart-bar" style="height:70%"></div>
+          <div class="chart-bar" style="height:55%"></div>
+          <div class="chart-bar" style="height:90%"></div>
+          <div class="chart-bar" style="height:75%"></div>
+          <div class="chart-bar" style="height:60%"></div>
+          <div class="chart-bar" style="height:85%"></div>
+          <div class="chart-bar" style="height:95%"></div>
+          <div class="chart-bar" style="height:78%"></div>
+        </div>
+      </div>
+
+      <div class="bento-item">
+        <h3>Slimme filters</h3>
+        <p>Filter op datumbereik, dagtype, locatie, outlet en POS-terminal.</p>
+        <div class="bento-visual">
+          <span class="tag">Datumbereik</span>
+          <span class="tag">Weekdagen</span>
+          <span class="tag">Locatie</span>
+          <span class="tag">Outlet</span>
+          <span class="tag">POS</span>
+          <span class="tag">Product</span>
+        </div>
+      </div>
+
+      <div class="bento-item">
+        <h3>Bezettingsgraad</h3>
+        <p>Meet hoe effici&euml;nt uw capaciteit wordt benut. Stel regels in per locatie.</p>
+        <div class="bento-visual">
+          <span class="tag">Zitplaatsen</span>
+          <span class="tag">Capaciteit</span>
+          <span class="tag">Regels</span>
+        </div>
+      </div>
+
+      <div class="bento-item span-2">
+        <h3>Multi-tenant &amp; Rolbeheer</h3>
+        <p>Beheer meerdere locaties vanuit &eacute;&eacute;n platform. Rollen (Super, Admin, User) bepalen wat elke gebruiker ziet en kan doen. Volledige data-isolatie tussen tenants.</p>
+        <div class="bento-visual">
+          <span class="tag">Super Admin</span>
+          <span class="tag">Admin</span>
+          <span class="tag">Gebruiker</span>
+          <span class="tag">SSO / Authelia</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKFLOW -->
+  <section id="workflow">
+    <div class="section-label">Hoe het werkt</div>
+    <h2 class="section-title">In drie stappen operationeel</h2>
+    <p class="section-desc">Van data-upload tot bruikbare inzichten — snel en eenvoudig.</p>
+
+    <div class="workflow">
+      <div class="workflow-step">
+        <div class="workflow-num">1</div>
+        <h3>Upload uw data</h3>
+        <p>Upload uw POS-transacties en aanwezigheidsdata. Arcanta valideert en mapt automatisch uw velden.</p>
+      </div>
+      <div class="workflow-step">
+        <div class="workflow-num">2</div>
+        <h3>Configureer uw locatie</h3>
+        <p>Stel uw POS-dictionary, capaciteit en bezettingsregels in. Eenmalig instellen, altijd actueel.</p>
+      </div>
+      <div class="workflow-step">
+        <div class="workflow-num">3</div>
+        <h3>Analyseer &amp; optimaliseer</h3>
+        <p>Bekijk dashboards, ontdek trends en neem datagedreven beslissingen om uw operatie te verbeteren.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="text-align:center; padding: 6rem 2rem 8rem;">
+    <h2 class="section-title" style="margin: 0 auto 1rem;">Klaar om te starten?</h2>
+    <p class="section-desc" style="margin: 0 auto 2.5rem;">Ontdek hoe Arcanta uw retail-operatie kan verbeteren.</p>
+    <a href="/" class="btn-cta" style="font-size:1rem; padding: 0.8rem 2rem;">Open Arcanta &rarr;</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="logo">Arcanta</div>
+    <p>&copy; 2025 Arcanta. Retail Analytics Platform.</p>
+  </footer>
+
+</body>
+</html>
