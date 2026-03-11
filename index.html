@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="root">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,14 +15,14 @@
       --primary-light: #5a7594;
       --primary-dark: #344759;
       --accent: #6B8CAE;
-      --caterpulse: #3A7D6A;
-      --caterpulse-light: #4A9B7F;
+      --caterpulse: #3b82f6;
+      --caterpulse-light: #60a5fa;
       --bg: #FAFBFC;
       --bg-alt: #F0F2F5;
       --text: #2C3E50;
       --text-light: #6C7A89;
       --white: #FFFFFF;
-      --success: #4A9B7F;
+      --success: #3b82f6;
       --radius: 12px;
       --shadow: 0 4px 24px rgba(71, 94, 123, 0.10);
       --shadow-lg: 0 12px 48px rgba(71, 94, 123, 0.15);
@@ -71,6 +71,15 @@
     }
     .nav-cta:hover { background: var(--primary-dark); transform: translateY(-1px); }
     .nav-cta::after { display: none !important; }
+
+    .lang-switch { display: flex; gap: 0.25rem; margin-left: 1rem; }
+    .lang-switch button {
+      background: none; border: 1px solid rgba(71,94,123,0.15); color: var(--text-light);
+      padding: 0.25rem 0.5rem; border-radius: 4px; font-family: inherit; font-size: 0.75rem;
+      font-weight: 700; cursor: pointer; transition: all 0.2s; text-transform: uppercase;
+    }
+    .lang-switch button.active { background: var(--primary); color: var(--white); border-color: var(--primary); }
+    .lang-switch button:hover:not(.active) { border-color: var(--primary); color: var(--primary); }
 
     .mobile-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; }
     .mobile-toggle span { display: block; width: 24px; height: 2px; background: var(--primary); margin: 5px 0; transition: 0.3s; }
@@ -166,7 +175,7 @@
     }
     .mock-stat .label { font-size: 0.75rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
     .mock-stat .value { font-size: 1.75rem; font-weight: 900; color: var(--white); }
-    .mock-stat .change { font-size: 0.8rem; color: #7DCEA0; margin-top: 0.25rem; }
+    .mock-stat .change { font-size: 0.8rem; color: #60a5fa; margin-top: 0.25rem; }
 
     .about-text h3 { font-size: 1.5rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 1rem; }
     .about-text p { color: var(--text-light); margin-bottom: 1rem; line-height: 1.8; }
@@ -262,7 +271,7 @@
     }
     .together::before {
       content: ''; position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 30% 80%, rgba(74, 155, 127, 0.15), transparent 50%);
+      background: radial-gradient(ellipse at 30% 80%, rgba(59, 130, 246, 0.15), transparent 50%);
     }
     .together .container { position: relative; z-index: 1; }
     .together .section-label { color: rgba(255,255,255,0.5); }
@@ -280,7 +289,7 @@
       font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
     }
     .together-card .tag.arcanta { background: rgba(71, 94, 123, 0.3); color: #A8C4DA; }
-    .together-card .tag.cp { background: rgba(74, 155, 127, 0.3); color: #7DCEA0; }
+    .together-card .tag.cp { background: rgba(59, 130, 246, 0.3); color: #60a5fa; }
     .together-arrow {
       display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.3);
     }
@@ -509,12 +518,17 @@
     <div class="nav-inner">
       <a href="#" class="nav-logo">Arcanta <span>& Caterpulse</span></a>
       <ul class="nav-links">
-        <li><a href="#about">About</a></li>
+        <li><a href="#about" data-i18n="nav_about">About</a></li>
         <li><a href="#arcanta">Arcanta</a></li>
         <li><a href="#caterpulse">Caterpulse</a></li>
-        <li><a href="#together">Together</a></li>
-        <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+        <li><a href="#together" data-i18n="nav_together">Together</a></li>
+        <li><a href="#contact" class="nav-cta" data-i18n="nav_contact">Get in Touch</a></li>
       </ul>
+      <div class="lang-switch">
+        <button onclick="setLang('en')" class="active">EN</button>
+        <button onclick="setLang('nl')">NL</button>
+        <button onclick="setLang('fr')">FR</button>
+      </div>
       <button class="mobile-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')" aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
@@ -525,12 +539,12 @@
   <section class="hero" id="hero">
     <div class="hero-grid"></div>
     <div class="hero-content fade-up">
-      <div class="hero-badge">For Facility Managers</div>
-      <h1>Take control of your <em>catering operations</em></h1>
-      <p>Two tools, one mission. Arcanta delivers deep catering analytics through periodic data analysis. Caterpulse tracks occupancy in real time. Together, they give facility managers complete visibility into performance.</p>
+      <div class="hero-badge" data-i18n="hero_badge">For Facility Managers</div>
+      <h1 data-i18n="hero_title" data-i18n-html="true">Take control of your <em>catering operations</em></h1>
+      <p data-i18n="hero_desc">Two tools, one mission. Arcanta delivers deep catering analytics through periodic data analysis. Caterpulse tracks occupancy in real time. Together, they give facility managers complete visibility into performance.</p>
       <div class="hero-buttons">
-        <a href="mailto:frederik@arcanta.io?subject=Arcanta%20demo%20request" class="btn btn-white">Request a Demo</a>
-        <a href="#about" class="btn btn-outline">Learn More</a>
+        <a href="mailto:frederik@arcanta.io?subject=Arcanta%20demo%20request" class="btn btn-white" data-i18n="hero_cta">Request a Demo</a>
+        <a href="#about" class="btn btn-outline" data-i18n="hero_learn">Learn More</a>
       </div>
 
       <!-- Floating 3D Dashboard Preview -->
@@ -566,19 +580,19 @@
             <rect x="200" y="66" width="135" height="72" rx="10" fill="#fff" stroke="#E8ECF0" stroke-width="1"/>
             <text x="214" y="86" font-family="Lato, sans-serif" font-size="9" fill="#6C7A89" letter-spacing="1">GUESTS</text>
             <text x="214" y="112" font-family="Lato, sans-serif" font-weight="900" font-size="24" fill="#344759">1,243</text>
-            <text x="214" y="128" font-family="Lato, sans-serif" font-size="10" fill="#4A9B7F" font-weight="700">+8.5%</text>
+            <text x="214" y="128" font-family="Lato, sans-serif" font-size="10" fill="#3b82f6" font-weight="700">+8.5%</text>
             <text x="248" y="128" font-family="Lato, sans-serif" font-size="9" fill="#A0A8B2">vs last week</text>
 
             <rect x="345" y="66" width="135" height="72" rx="10" fill="#fff" stroke="#E8ECF0" stroke-width="1"/>
             <text x="359" y="86" font-family="Lato, sans-serif" font-size="9" fill="#6C7A89" letter-spacing="1">REVENUE</text>
             <text x="359" y="112" font-family="Lato, sans-serif" font-weight="900" font-size="24" fill="#344759">&#8364;10.7K</text>
-            <text x="359" y="128" font-family="Lato, sans-serif" font-size="10" fill="#4A9B7F" font-weight="700">+3.2%</text>
+            <text x="359" y="128" font-family="Lato, sans-serif" font-size="10" fill="#3b82f6" font-weight="700">+3.2%</text>
             <text x="393" y="128" font-family="Lato, sans-serif" font-size="9" fill="#A0A8B2">growth</text>
 
             <rect x="490" y="66" width="135" height="72" rx="10" fill="#fff" stroke="#E8ECF0" stroke-width="1"/>
             <text x="504" y="86" font-family="Lato, sans-serif" font-size="9" fill="#6C7A89" letter-spacing="1">AVG SPEND</text>
             <text x="504" y="112" font-family="Lato, sans-serif" font-weight="900" font-size="24" fill="#344759">&#8364;8.60</text>
-            <text x="504" y="128" font-family="Lato, sans-serif" font-size="10" fill="#4A9B7F" font-weight="700">+1.4%</text>
+            <text x="504" y="128" font-family="Lato, sans-serif" font-size="10" fill="#3b82f6" font-weight="700">+1.4%</text>
 
             <rect x="635" y="66" width="135" height="72" rx="10" fill="#fff" stroke="#E8ECF0" stroke-width="1"/>
             <text x="649" y="86" font-family="Lato, sans-serif" font-size="9" fill="#6C7A89" letter-spacing="1">PARTICIPATION</text>
@@ -647,44 +661,44 @@
   <!-- ABOUT -->
   <section class="about" id="about">
     <div class="container">
-      <span class="section-label fade-up">Why We Exist</span>
-      <h2 class="section-title fade-up">Built for catering in captive environments</h2>
-      <p class="section-subtitle fade-up">Company restaurants, campus canteens, hospital cafeterias, government buildings — catering in a captive environment is a world of its own. Your guests don't choose to come. They're already there.</p>
+      <span class="section-label fade-up" data-i18n="about_label">Why We Exist</span>
+      <h2 class="section-title fade-up" data-i18n="about_title">Built for catering in captive environments</h2>
+      <p class="section-subtitle fade-up" data-i18n="about_subtitle">Company restaurants, campus canteens, hospital cafeterias, government buildings — catering in a captive environment is a world of its own. Your guests don't choose to come. They're already there.</p>
 
       <div class="about-grid">
         <div class="about-visual fade-up">
           <div class="mock-stats">
             <div class="mock-stat">
-              <div class="label">Guests Today</div>
+              <div class="label" data-i18n="mock_guests">Guests Today</div>
               <div class="value">1,243</div>
-              <div class="change">+8.5% vs last week</div>
+              <div class="change" data-i18n="mock_guests_change">+8.5% vs last week</div>
             </div>
             <div class="mock-stat">
-              <div class="label">Seat Utilisation</div>
+              <div class="label" data-i18n="mock_seat">Seat Utilisation</div>
               <div class="value">74%</div>
-              <div class="change">Peak at 12:30</div>
+              <div class="change" data-i18n="mock_seat_change">Peak at 12:30</div>
             </div>
             <div class="mock-stat">
-              <div class="label">Avg. Spend</div>
+              <div class="label" data-i18n="mock_spend">Avg. Spend</div>
               <div class="value">&euro;8.60</div>
-              <div class="change">+3.2% growth</div>
+              <div class="change" data-i18n="mock_spend_change">+3.2% growth</div>
             </div>
             <div class="mock-stat">
-              <div class="label">Participation</div>
+              <div class="label" data-i18n="mock_participation">Participation</div>
               <div class="value">62%</div>
-              <div class="change">of building occupants</div>
+              <div class="change" data-i18n="mock_participation_change">of building occupants</div>
             </div>
           </div>
         </div>
         <div class="about-text fade-up">
-          <h3>The challenge isn't attracting guests — it's serving them well</h3>
-          <p>As a facility manager, you need to know how many guests show up, when they arrive, what they eat, and whether the space can handle the load. You need data to hold caterers accountable and to plan for tomorrow — not just react to today.</p>
-          <p>That's why we built two complementary tools: <strong>Arcanta</strong> for deep, periodic analysis of catering performance, and <strong>Caterpulse</strong> for real-time occupancy monitoring. Each works on its own. Together, they're even more powerful.</p>
+          <h3 data-i18n="about_challenge">The challenge isn't attracting guests — it's serving them well</h3>
+          <p data-i18n="about_p1">As a facility manager, you need to know how many guests show up, when they arrive, what they eat, and whether the space can handle the load. You need data to hold caterers accountable and to plan for tomorrow — not just react to today.</p>
+          <p data-i18n="about_p2" data-i18n-html="true">That's why we built two complementary tools: <strong>Arcanta</strong> for deep, periodic analysis of catering performance, and <strong>Caterpulse</strong> for real-time occupancy monitoring. Each works on its own. Together, they're even more powerful.</p>
           <div class="about-tags">
-            <span class="about-tag">Captive catering</span>
-            <span class="about-tag">Company restaurants</span>
-            <span class="about-tag">Multi-site</span>
-            <span class="about-tag">Campus & hospitals</span>
+            <span class="about-tag" data-i18n="tag_captive">Captive catering</span>
+            <span class="about-tag" data-i18n="tag_company">Company restaurants</span>
+            <span class="about-tag" data-i18n="tag_multi">Multi-site</span>
+            <span class="about-tag" data-i18n="tag_campus">Campus & hospitals</span>
             <span class="about-tag">EN / NL / FR</span>
           </div>
         </div>
@@ -696,9 +710,9 @@
   <section class="how-it-works">
     <div class="container">
       <div style="text-align: center;">
-        <span class="section-label fade-up">How It Works</span>
-        <h2 class="section-title fade-up">Up and running in three simple steps</h2>
-        <p class="section-subtitle fade-up" style="margin: 0 auto;">No data team, no complex setup. Arcanta and Caterpulse are designed for facility managers who want results — not IT projects.</p>
+        <span class="section-label fade-up" data-i18n="how_label">How It Works</span>
+        <h2 class="section-title fade-up" data-i18n="how_title">Up and running in three simple steps</h2>
+        <p class="section-subtitle fade-up" style="margin: 0 auto;" data-i18n="how_subtitle">No data team, no complex setup. Arcanta and Caterpulse are designed for facility managers who want results — not IT projects.</p>
       </div>
 
       <div class="steps-grid fade-up">
@@ -707,24 +721,24 @@
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#475E7B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="12 18 12 12"/><polyline points="9 15 12 12 15 15"/></svg>
           </div>
           <div class="step-number">1</div>
-          <h3>Upload Your Data</h3>
-          <p>Export POS transactions or headcount data from your existing systems. Upload CSV or Excel files — our smart mapper handles the rest.</p>
+          <h3 data-i18n="step1_title">Upload Your Data</h3>
+          <p data-i18n="step1_desc">Export POS transactions or headcount data from your existing systems. Upload CSV or Excel files — our smart mapper handles the rest.</p>
         </div>
         <div class="step-card">
           <div class="step-icon">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#475E7B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
           </div>
           <div class="step-number">2</div>
-          <h3>Explore Insights</h3>
-          <p>Interactive dashboards reveal trends, patterns, and anomalies. Drill down into KPIs, heatmaps, and product analysis — all in your browser.</p>
+          <h3 data-i18n="step2_title">Explore Insights</h3>
+          <p data-i18n="step2_desc">Interactive dashboards reveal trends, patterns, and anomalies. Drill down into KPIs, heatmaps, and product analysis — all in your browser.</p>
         </div>
         <div class="step-card">
           <div class="step-icon">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#475E7B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
           </div>
           <div class="step-number">3</div>
-          <h3>Take Action</h3>
-          <p>Use evidence-based insights to optimise menus, hold caterers accountable, and improve the guest experience across your locations.</p>
+          <h3 data-i18n="step3_title">Take Action</h3>
+          <p data-i18n="step3_desc">Use evidence-based insights to optimise menus, hold caterers accountable, and improve the guest experience across your locations.</p>
         </div>
       </div>
     </div>
@@ -735,8 +749,8 @@
     <div class="container">
       <div class="product-header">
         <span class="section-label fade-up">Arcanta</span>
-        <h2 class="section-title fade-up">Your analytical dashboard for catering performance</h2>
-        <p class="fade-up">Arcanta is a self-service analytics platform where facility managers periodically upload POS and headcount data to track KPIs, uncover trends, and perform deep analysis. No data team required — just upload, map your columns, and go.</p>
+        <h2 class="section-title fade-up" data-i18n="arc_title">Your analytical dashboard for catering performance</h2>
+        <p class="fade-up" data-i18n="arc_desc">Arcanta is a self-service analytics platform where facility managers periodically upload POS and headcount data to track KPIs, uncover trends, and perform deep analysis. No data team required — just upload, map your columns, and go.</p>
       </div>
 
       <!-- Arcanta Dashboard Mockup -->
@@ -778,17 +792,17 @@
           <rect x="232" y="80" width="155" height="86" rx="10" fill="#fff" stroke="#E8ECF0" stroke-width="1"/>
           <text x="248" y="102" font-family="Lato, sans-serif" font-size="11" fill="#6C7A89" text-transform="uppercase" letter-spacing="1">GUESTS</text>
           <text x="248" y="133" font-family="Lato, sans-serif" font-weight="900" font-size="28" fill="#344759">1,243</text>
-          <text x="248" y="153" font-family="Lato, sans-serif" font-size="11" fill="#4A9B7F">&#9650; +8.5%</text>
+          <text x="248" y="153" font-family="Lato, sans-serif" font-size="11" fill="#3b82f6">&#9650; +8.5%</text>
           <!-- Card 2: Revenue -->
           <rect x="397" y="80" width="155" height="86" rx="10" fill="#fff" stroke="#E8ECF0" stroke-width="1"/>
           <text x="413" y="102" font-family="Lato, sans-serif" font-size="11" fill="#6C7A89">REVENUE</text>
           <text x="413" y="133" font-family="Lato, sans-serif" font-weight="900" font-size="28" fill="#344759">€10.7K</text>
-          <text x="413" y="153" font-family="Lato, sans-serif" font-size="11" fill="#4A9B7F">&#9650; +3.2%</text>
+          <text x="413" y="153" font-family="Lato, sans-serif" font-size="11" fill="#3b82f6">&#9650; +3.2%</text>
           <!-- Card 3: Avg Spend -->
           <rect x="562" y="80" width="155" height="86" rx="10" fill="#fff" stroke="#E8ECF0" stroke-width="1"/>
           <text x="578" y="102" font-family="Lato, sans-serif" font-size="11" fill="#6C7A89">AVG. SPEND</text>
           <text x="578" y="133" font-family="Lato, sans-serif" font-weight="900" font-size="28" fill="#344759">€8.60</text>
-          <text x="578" y="153" font-family="Lato, sans-serif" font-size="11" fill="#4A9B7F">&#9650; +1.4%</text>
+          <text x="578" y="153" font-family="Lato, sans-serif" font-size="11" fill="#3b82f6">&#9650; +1.4%</text>
           <!-- Card 4: Participation -->
           <rect x="727" y="80" width="155" height="86" rx="10" fill="#fff" stroke="#E8ECF0" stroke-width="1"/>
           <text x="743" y="102" font-family="Lato, sans-serif" font-size="11" fill="#6C7A89">PARTICIPATION</text>
@@ -916,49 +930,49 @@
           <div class="feature-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary)"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
           </div>
-          <h3>Self-service Data Upload</h3>
-          <p>Import POS transactions and headcount data via CSV or Excel. Smart column mapping lets you match your data to the right fields — no IT support needed.</p>
+          <h3 data-i18n="arc_f1_title">Self-service Data Upload</h3>
+          <p data-i18n="arc_f1_desc">Import POS transactions and headcount data via CSV or Excel. Smart column mapping lets you match your data to the right fields — no IT support needed.</p>
         </div>
         <div class="feature-card fade-up">
           <div class="feature-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary)"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
           </div>
-          <h3>KPI Tracking & Trends</h3>
-          <p>Monitor guest counts, revenue, average spend, and seat utilisation over time. Spot weekly rhythms, seasonal patterns, and anomalies at a glance.</p>
+          <h3 data-i18n="arc_f2_title">KPI Tracking &amp; Trends</h3>
+          <p data-i18n="arc_f2_desc">Monitor guest counts, revenue, average spend, and seat utilisation over time. Spot weekly rhythms, seasonal patterns, and anomalies at a glance.</p>
         </div>
         <div class="feature-card fade-up">
           <div class="feature-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary)"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
           </div>
-          <h3>Menu & Product Analysis</h3>
-          <p>Understand which dishes perform, which combos guests prefer, and how the product mix evolves. Use hard data to optimize the menu together with your caterer.</p>
+          <h3 data-i18n="arc_f3_title">Menu &amp; Product Analysis</h3>
+          <p data-i18n="arc_f3_desc">Understand which dishes perform, which combos guests prefer, and how the product mix evolves. Use hard data to optimize the menu together with your caterer.</p>
         </div>
         <div class="feature-card fade-up">
           <div class="feature-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary)"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h2a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2"/></svg>
           </div>
-          <h3>Deep-dive Dashboards</h3>
-          <p>Heatmaps, intraday charts, comparison views, and drilldowns. Designed for facility managers who want to go beyond surface-level reports.</p>
+          <h3 data-i18n="arc_f4_title">Deep-dive Dashboards</h3>
+          <p data-i18n="arc_f4_desc">Heatmaps, intraday charts, comparison views, and drilldowns. Designed for facility managers who want to go beyond surface-level reports.</p>
         </div>
         <div class="feature-card fade-up">
           <div class="feature-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary)"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           </div>
-          <h3>Caterer Accountability</h3>
-          <p>Stop relying on your caterer's reports alone. Arcanta gives you independent, verifiable data to benchmark performance and hold informed SLA discussions.</p>
+          <h3 data-i18n="arc_f5_title">Caterer Accountability</h3>
+          <p data-i18n="arc_f5_desc">Stop relying on your caterer's reports alone. Arcanta gives you independent, verifiable data to benchmark performance and hold informed SLA discussions.</p>
         </div>
         <div class="feature-card fade-up">
           <div class="feature-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary)"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
           </div>
-          <h3>Multi-site Management</h3>
-          <p>Manage one company restaurant or dozens of locations. Role-based access ensures the right people see the right data — from site level to boardroom.</p>
+          <h3 data-i18n="arc_f6_title">Multi-site Management</h3>
+          <p data-i18n="arc_f6_desc">Manage one company restaurant or dozens of locations. Role-based access ensures the right people see the right data — from site level to boardroom.</p>
         </div>
       </div>
 
       <div class="section-cta fade-up">
-        <a href="mailto:frederik@arcanta.io?subject=Arcanta%20demo%20request" class="btn btn-primary">Request a Live Demo</a>
-        <span class="note">See the Arcanta dashboard with your own data.</span>
+        <a href="mailto:frederik@arcanta.io?subject=Arcanta%20demo%20request" class="btn btn-primary" data-i18n="arc_cta">Request a Live Demo</a>
+        <span class="note" data-i18n="arc_cta_note">See the Arcanta dashboard with your own data.</span>
       </div>
     </div>
   </section>
@@ -968,105 +982,113 @@
     <div class="container">
       <div class="product-header">
         <span class="section-label fade-up" style="color: var(--caterpulse);">Caterpulse</span>
-        <span class="fade-up" style="display:inline-block;background:var(--caterpulse);color:#fff;font-size:0.75rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:8px;">Under Development — Coming Soon</span>
-        <h2 class="section-title fade-up">Real-time occupancy tracking for your catering locations</h2>
-        <p class="fade-up">Caterpulse is a lightweight occupancy measurement system that shows you — and your employees — how busy your restaurant is right now. With its own dashboard, embeddable widget, and per-location insights, it helps guests and managers make smarter decisions in the moment.</p>
+        <div class="hero-badge" style="background: rgba(59,130,246,0.12); border-color: rgba(59,130,246,0.25); color: var(--caterpulse); margin-bottom: 1rem; font-size: 0.8rem;" data-i18n="cp_badge">Under Development — Coming Soon</div>
+        <h2 class="section-title fade-up" data-i18n="cp_title">Real-time occupancy tracking for your catering locations</h2>
+        <p class="fade-up" data-i18n="cp_desc">Caterpulse is a lightweight occupancy measurement system that shows you — and your employees — how busy your restaurant is right now. With its own dashboard, embeddable widget, and per-location insights, it helps guests and managers make smarter decisions in the moment.</p>
       </div>
 
       <!-- Caterpulse Dashboard + Widget Mockups -->
       <div class="caterpulse-visuals fade-up">
-        <!-- Caterpulse Dashboard -->
+        <!-- Caterpulse Dashboard (XL Widget) -->
         <div>
-          <div class="widget-label">Live Dashboard</div>
+          <div class="widget-label" data-i18n="wl_dashboard">Live Dashboard</div>
           <svg viewBox="0 0 580 400" xmlns="http://www.w3.org/2000/svg">
             <!-- Background -->
-            <rect width="580" height="400" rx="12" fill="#1A2F28"/>
+            <rect width="580" height="400" rx="12" fill="#0f172a"/>
+            <!-- Card bg -->
+            <rect x="0" y="0" width="580" height="400" rx="12" fill="#1e293b"/>
             <!-- Header bar -->
-            <rect x="0" y="0" width="580" height="52" rx="12" fill="#22403A"/>
-            <rect x="0" y="24" width="580" height="28" fill="#22403A"/>
-            <text x="24" y="34" font-family="Lato, sans-serif" font-weight="900" font-size="16" fill="#fff">Caterpulse</text>
-            <text x="120" y="34" font-family="Lato, sans-serif" font-weight="300" font-size="13" fill="rgba(255,255,255,0.5)">Live Occupancy</text>
+            <rect x="0" y="0" width="580" height="48" rx="12" fill="#1a2538"/>
+            <rect x="0" y="20" width="580" height="28" fill="#1a2538"/>
+            <rect x="0" y="48" width="580" height="1" fill="rgba(255,255,255,0.06)"/>
+            <text x="20" y="32" font-family="Lato, sans-serif" font-weight="700" font-size="14" fill="#fff">Caterpulse</text>
+            <text x="110" y="32" font-family="Lato, sans-serif" font-weight="300" font-size="11" fill="rgba(255,255,255,0.4)">Live Occupancy</text>
             <!-- Live indicator -->
-            <circle cx="530" cy="28" r="5" fill="#4ADE80"/>
-            <circle cx="530" cy="28" r="5" fill="#4ADE80" opacity="0.5">
-              <animate attributeName="r" values="5;10;5" dur="2s" repeatCount="indefinite"/>
-              <animate attributeName="opacity" values="0.5;0;0.5" dur="2s" repeatCount="indefinite"/>
+            <circle cx="520" cy="26" r="4" fill="#3b82f6"/>
+            <circle cx="520" cy="26" r="4" fill="#3b82f6" opacity="0.4">
+              <animate attributeName="r" values="4;9;4" dur="2s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0.4;0;0.4" dur="2s" repeatCount="indefinite"/>
             </circle>
-            <text x="542" y="32" font-family="Lato, sans-serif" font-size="11" fill="#4ADE80" font-weight="700">LIVE</text>
+            <text x="530" y="30" font-family="Lato, sans-serif" font-size="10" fill="#3b82f6" font-weight="700">LIVE</text>
 
-            <!-- Main occupancy display -->
-            <!-- Occupancy gauge (arc) -->
-            <circle cx="168" cy="170" r="80" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="12"/>
-            <circle cx="168" cy="170" r="80" fill="none" stroke="#3A7D6A" stroke-width="12" stroke-dasharray="370 503" stroke-linecap="round" transform="rotate(-90 168 170)"/>
-            <!-- Percentage text -->
-            <text x="168" y="164" font-family="Lato, sans-serif" font-weight="900" font-size="42" fill="#fff" text-anchor="middle">74%</text>
-            <text x="168" y="186" font-family="Lato, sans-serif" font-size="12" fill="rgba(255,255,255,0.5)" text-anchor="middle">Occupied</text>
-            <!-- Status badge -->
-            <rect x="128" y="205" width="80" height="24" rx="12" fill="rgba(74,155,127,0.25)"/>
-            <text x="168" y="221" font-family="Lato, sans-serif" font-size="11" fill="#4A9B7F" text-anchor="middle" font-weight="700">Moderate</text>
-            <!-- Guest count -->
-            <text x="168" y="272" font-family="Lato, sans-serif" font-size="14" fill="rgba(255,255,255,0.7)" text-anchor="middle">186 of 250 seats</text>
+            <!-- Gauge section (left) -->
+            <circle cx="148" cy="160" r="70" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="10"/>
+            <circle cx="148" cy="160" r="70" fill="none" stroke="#3b82f6" stroke-width="10" stroke-dasharray="325 440" stroke-linecap="round" transform="rotate(-90 148 160)"/>
+            <text x="148" y="154" font-family="Lato, sans-serif" font-weight="800" font-size="36" fill="#fff" text-anchor="middle">74%</text>
+            <text x="148" y="174" font-family="Lato, sans-serif" font-size="11" fill="rgba(255,255,255,0.4)" text-anchor="middle">Bezetting</text>
+            <!-- Status pill -->
+            <rect x="108" y="198" width="80" height="22" rx="11" fill="rgba(59,130,246,0.15)"/>
+            <text x="148" y="213" font-family="Lato, sans-serif" font-size="10" fill="#60a5fa" text-anchor="middle" font-weight="700">NORMAAL</text>
+            <!-- Count bars -->
+            <text x="68" y="252" font-family="Lato, sans-serif" font-size="9" fill="rgba(255,255,255,0.35)">Aanwezig</text>
+            <rect x="68" y="258" width="160" height="5" rx="2.5" fill="rgba(255,255,255,0.06)"/>
+            <rect x="68" y="258" width="118" height="5" rx="2.5" fill="#3b82f6"/>
+            <text x="228" y="266" font-family="Lato, sans-serif" font-size="9" fill="rgba(255,255,255,0.5)" text-anchor="end">186</text>
+            <text x="68" y="282" font-family="Lato, sans-serif" font-size="9" fill="rgba(255,255,255,0.35)">Capaciteit</text>
+            <rect x="68" y="288" width="160" height="5" rx="2.5" fill="rgba(255,255,255,0.06)"/>
+            <rect x="68" y="288" width="160" height="5" rx="2.5" fill="rgba(255,255,255,0.12)"/>
+            <text x="228" y="296" font-family="Lato, sans-serif" font-size="9" fill="rgba(255,255,255,0.5)" text-anchor="end">250</text>
 
-            <!-- Location cards on the right -->
-            <text x="310" y="82" font-family="Lato, sans-serif" font-weight="700" font-size="13" fill="rgba(255,255,255,0.6)">LOCATIONS</text>
+            <!-- Location cards (right) -->
+            <text x="300" y="76" font-family="Lato, sans-serif" font-weight="700" font-size="11" fill="rgba(255,255,255,0.5)" text-transform="uppercase" letter-spacing="1">LOCATIES</text>
 
-            <!-- Location 1: Main Restaurant -->
-            <rect x="310" y="94" width="248" height="62" rx="8" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-            <circle cx="334" cy="125" r="8" fill="#4ADE80"/>
-            <text x="350" y="117" font-family="Lato, sans-serif" font-weight="700" font-size="13" fill="#fff">Main Restaurant</text>
-            <text x="350" y="135" font-family="Lato, sans-serif" font-size="11" fill="rgba(255,255,255,0.45)">Building A — Ground floor</text>
-            <text x="518" y="121" font-family="Lato, sans-serif" font-weight="900" font-size="18" fill="#4A9B7F" text-anchor="end">74%</text>
-            <!-- Progress bar -->
-            <rect x="350" y="143" width="180" height="4" rx="2" fill="rgba(255,255,255,0.08)"/>
-            <rect x="350" y="143" width="133" height="4" rx="2" fill="#3A7D6A"/>
+            <!-- Location 1 -->
+            <rect x="300" y="88" width="258" height="56" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+            <circle cx="320" cy="116" r="6" fill="#60a5fa"/>
+            <text x="334" y="110" font-family="Lato, sans-serif" font-weight="700" font-size="12" fill="#fff">Main Restaurant</text>
+            <text x="334" y="126" font-family="Lato, sans-serif" font-size="10" fill="rgba(255,255,255,0.35)">Building A — Ground floor</text>
+            <text x="540" y="114" font-family="Lato, sans-serif" font-weight="800" font-size="16" fill="#60a5fa" text-anchor="end">74%</text>
+            <rect x="334" y="133" width="180" height="3" rx="1.5" fill="rgba(255,255,255,0.06)"/>
+            <rect x="334" y="133" width="133" height="3" rx="1.5" fill="#3b82f6"/>
 
-            <!-- Location 2: Café Lounge -->
-            <rect x="310" y="166" width="248" height="62" rx="8" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-            <circle cx="334" cy="197" r="8" fill="#FACC15"/>
-            <text x="350" y="189" font-family="Lato, sans-serif" font-weight="700" font-size="13" fill="#fff">Café Lounge</text>
-            <text x="350" y="207" font-family="Lato, sans-serif" font-size="11" fill="rgba(255,255,255,0.45)">Building B — 2nd floor</text>
-            <text x="518" y="193" font-family="Lato, sans-serif" font-weight="900" font-size="18" fill="#FACC15" text-anchor="end">89%</text>
-            <rect x="350" y="215" width="180" height="4" rx="2" fill="rgba(255,255,255,0.08)"/>
-            <rect x="350" y="215" width="160" height="4" rx="2" fill="#FACC15"/>
+            <!-- Location 2 -->
+            <rect x="300" y="152" width="258" height="56" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+            <circle cx="320" cy="180" r="6" fill="#fbbf24"/>
+            <text x="334" y="174" font-family="Lato, sans-serif" font-weight="700" font-size="12" fill="#fff">Café Lounge</text>
+            <text x="334" y="190" font-family="Lato, sans-serif" font-size="10" fill="rgba(255,255,255,0.35)">Building B — 2nd floor</text>
+            <text x="540" y="178" font-family="Lato, sans-serif" font-weight="800" font-size="16" fill="#fbbf24" text-anchor="end">89%</text>
+            <rect x="334" y="197" width="180" height="3" rx="1.5" fill="rgba(255,255,255,0.06)"/>
+            <rect x="334" y="197" width="160" height="3" rx="1.5" fill="#fbbf24"/>
 
-            <!-- Location 3: Meeting Point -->
-            <rect x="310" y="238" width="248" height="62" rx="8" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-            <circle cx="334" cy="269" r="8" fill="#4ADE80"/>
-            <text x="350" y="261" font-family="Lato, sans-serif" font-weight="700" font-size="13" fill="#fff">Meeting Point</text>
-            <text x="350" y="279" font-family="Lato, sans-serif" font-size="11" fill="rgba(255,255,255,0.45)">Campus West — Lobby</text>
-            <text x="518" y="265" font-family="Lato, sans-serif" font-weight="900" font-size="18" fill="#4A9B7F" text-anchor="end">42%</text>
-            <rect x="350" y="287" width="180" height="4" rx="2" fill="rgba(255,255,255,0.08)"/>
-            <rect x="350" y="287" width="76" height="4" rx="2" fill="#3A7D6A"/>
+            <!-- Location 3 -->
+            <rect x="300" y="216" width="258" height="56" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+            <circle cx="320" cy="244" r="6" fill="#60a5fa"/>
+            <text x="334" y="238" font-family="Lato, sans-serif" font-weight="700" font-size="12" fill="#fff">Meeting Point</text>
+            <text x="334" y="254" font-family="Lato, sans-serif" font-size="10" fill="rgba(255,255,255,0.35)">Campus West — Lobby</text>
+            <text x="540" y="242" font-family="Lato, sans-serif" font-weight="800" font-size="16" fill="#60a5fa" text-anchor="end">42%</text>
+            <rect x="334" y="261" width="180" height="3" rx="1.5" fill="rgba(255,255,255,0.06)"/>
+            <rect x="334" y="261" width="76" height="3" rx="1.5" fill="#3b82f6"/>
 
-            <!-- Intraday timeline at bottom -->
-            <text x="24" y="322" font-family="Lato, sans-serif" font-weight="700" font-size="12" fill="rgba(255,255,255,0.5)">TODAY'S OCCUPANCY</text>
-            <rect x="24" y="334" width="534" height="50" rx="8" fill="rgba(255,255,255,0.04)"/>
+            <!-- Activity chart at bottom -->
+            <text x="20" y="316" font-family="Lato, sans-serif" font-weight="700" font-size="11" fill="rgba(255,255,255,0.4)">ACTIVITEIT VANDAAG</text>
+            <rect x="20" y="326" width="540" height="58" rx="8" fill="rgba(255,255,255,0.03)"/>
             <!-- Hour labels -->
-            <text x="44" y="378" font-family="Lato, sans-serif" font-size="9" fill="rgba(255,255,255,0.3)">8h</text>
-            <text x="108" y="378" font-family="Lato, sans-serif" font-size="9" fill="rgba(255,255,255,0.3)">9h</text>
-            <text x="168" y="378" font-family="Lato, sans-serif" font-size="9" fill="rgba(255,255,255,0.3)">10h</text>
-            <text x="228" y="378" font-family="Lato, sans-serif" font-size="9" fill="rgba(255,255,255,0.3)">11h</text>
-            <text x="288" y="378" font-family="Lato, sans-serif" font-size="9" fill="rgba(255,255,255,0.3)">12h</text>
-            <text x="348" y="378" font-family="Lato, sans-serif" font-size="9" fill="rgba(255,255,255,0.3)">13h</text>
-            <text x="408" y="378" font-family="Lato, sans-serif" font-size="9" fill="rgba(255,255,255,0.3)">14h</text>
-            <text x="468" y="378" font-family="Lato, sans-serif" font-size="9" fill="rgba(255,255,255,0.3)">15h</text>
-            <text x="528" y="378" font-family="Lato, sans-serif" font-size="9" fill="rgba(255,255,255,0.3)">16h</text>
-            <!-- Area chart for today -->
-            <path d="M44 368 L80 366 L108 360 L140 356 L168 350 L200 346 L228 344 L260 348 L288 342 L320 340 L348 350 L380 354 L408 360 L440 364 L468 366 L500 368 L530 368 L530 370 L44 370 Z" fill="rgba(74,155,127,0.15)"/>
-            <polyline points="44,368 80,366 108,360 140,356 168,350 200,346 228,344 260,348 288,342 320,340 348,350 380,354 408,360 440,364 468,366 500,368 530,368" fill="none" stroke="#3A7D6A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <!-- Current time marker -->
-            <line x1="348" y1="338" x2="348" y2="372" stroke="#4ADE80" stroke-width="1.5" stroke-dasharray="3,2"/>
-            <circle cx="348" cy="350" r="4" fill="#4ADE80"/>
-            <text x="348" y="338" font-family="Lato, sans-serif" font-size="9" fill="#4ADE80" text-anchor="middle" font-weight="700">Now</text>
+            <text x="40" y="378" font-family="Lato, sans-serif" font-size="8" fill="rgba(255,255,255,0.25)">8u</text>
+            <text x="100" y="378" font-family="Lato, sans-serif" font-size="8" fill="rgba(255,255,255,0.25)">9u</text>
+            <text x="160" y="378" font-family="Lato, sans-serif" font-size="8" fill="rgba(255,255,255,0.25)">10u</text>
+            <text x="220" y="378" font-family="Lato, sans-serif" font-size="8" fill="rgba(255,255,255,0.25)">11u</text>
+            <text x="280" y="378" font-family="Lato, sans-serif" font-size="8" fill="rgba(255,255,255,0.25)">12u</text>
+            <text x="340" y="378" font-family="Lato, sans-serif" font-size="8" fill="rgba(255,255,255,0.25)">13u</text>
+            <text x="400" y="378" font-family="Lato, sans-serif" font-size="8" fill="rgba(255,255,255,0.25)">14u</text>
+            <text x="460" y="378" font-family="Lato, sans-serif" font-size="8" fill="rgba(255,255,255,0.25)">15u</text>
+            <text x="520" y="378" font-family="Lato, sans-serif" font-size="8" fill="rgba(255,255,255,0.25)">16u</text>
+            <!-- Typical pattern (grey area) -->
+            <path d="M40 368 L80 364 L110 356 L140 348 L170 342 L200 338 L230 336 L260 340 L290 334 L320 332 L340 338 L370 344 L400 352 L430 358 L460 364 L490 366 L530 368 L530 370 L40 370 Z" fill="rgba(255,255,255,0.04)"/>
+            <!-- Today line -->
+            <path d="M40 366 L80 362 L110 354 L140 346 L170 340 L200 336 L230 334 L260 338 L290 332 L320 330 L340 340 L340 370 L40 370 Z" fill="rgba(59,130,246,0.12)"/>
+            <polyline points="40,366 80,362 110,354 140,346 170,340 200,336 230,334 260,338 290,332 320,330 340,340" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Now marker -->
+            <line x1="340" y1="328" x2="340" y2="370" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="3,2"/>
+            <circle cx="340" cy="340" r="3.5" fill="#60a5fa"/>
+            <text x="340" y="328" font-family="Lato, sans-serif" font-size="8" fill="#60a5fa" text-anchor="middle" font-weight="700">Nu</text>
           </svg>
         </div>
 
         <!-- Caterpulse Widget Preview -->
         <div>
-          <div class="widget-label">Embeddable Widget</div>
+          <div class="widget-label" data-i18n="wl_widget">Embeddable Widget</div>
           <svg viewBox="0 0 260 400" xmlns="http://www.w3.org/2000/svg">
-            <!-- Widget frame (looks like embedded in a website) -->
-            <!-- Browser chrome hint -->
+            <!-- Browser chrome -->
             <rect width="260" height="400" rx="12" fill="#F5F6F8"/>
             <rect x="0" y="0" width="260" height="28" rx="12" fill="#E8EAED"/>
             <rect x="0" y="16" width="260" height="12" fill="#E8EAED"/>
@@ -1076,105 +1098,111 @@
             <rect x="70" y="6" width="120" height="12" rx="6" fill="#D1D5DB"/>
             <text x="95" y="15" font-family="Lato, sans-serif" font-size="7" fill="#9CA3AF">intranet.company.com</text>
 
-            <!-- Page content simulation -->
+            <!-- Page content -->
             <rect x="14" y="40" width="232" height="10" rx="3" fill="#E2E5E9"/>
             <rect x="14" y="56" width="180" height="10" rx="3" fill="#E2E5E9"/>
             <rect x="14" y="72" width="210" height="10" rx="3" fill="#E2E5E9"/>
 
-            <!-- The actual widget -->
-            <rect x="14" y="96" width="232" height="232" rx="12" fill="#fff" stroke="#E2E5E9" stroke-width="1" filter="url(#widgetShadow)"/>
+            <!-- The widget card (dark theme) -->
             <defs>
               <filter id="widgetShadow" x="-10%" y="-10%" width="120%" height="120%">
-                <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000" flood-opacity="0.08"/>
+                <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000" flood-opacity="0.15"/>
               </filter>
             </defs>
+            <rect x="14" y="94" width="232" height="244" rx="12" fill="#1e293b" filter="url(#widgetShadow)"/>
             <!-- Widget header -->
-            <rect x="14" y="96" width="232" height="40" rx="12" fill="#3A7D6A"/>
-            <rect x="14" y="120" width="232" height="16" fill="#3A7D6A"/>
-            <text x="30" y="120" font-family="Lato, sans-serif" font-weight="700" font-size="12" fill="#fff">Restaurant Status</text>
-            <circle cx="222" cy="116" r="4" fill="#4ADE80"/>
-            <circle cx="222" cy="116" r="4" fill="#4ADE80" opacity="0.4">
-              <animate attributeName="r" values="4;8;4" dur="2s" repeatCount="indefinite"/>
+            <rect x="14" y="94" width="232" height="36" rx="12" fill="#1a2538"/>
+            <rect x="14" y="116" width="232" height="14" fill="#1a2538"/>
+            <rect x="14" y="130" width="232" height="1" fill="rgba(255,255,255,0.06)"/>
+            <text x="28" y="116" font-family="Lato, sans-serif" font-weight="700" font-size="11" fill="#fff">Caterpulse</text>
+            <text x="98" y="116" font-family="Lato, sans-serif" font-weight="300" font-size="9" fill="rgba(255,255,255,0.4)">Drukte</text>
+            <!-- Live dot -->
+            <circle cx="222" cy="112" r="3.5" fill="#3b82f6"/>
+            <circle cx="222" cy="112" r="3.5" fill="#3b82f6" opacity="0.4">
+              <animate attributeName="r" values="3.5;7;3.5" dur="2s" repeatCount="indefinite"/>
               <animate attributeName="opacity" values="0.4;0;0.4" dur="2s" repeatCount="indefinite"/>
             </circle>
 
-            <!-- Widget body -->
-            <!-- Big occupancy display -->
-            <text x="130" y="178" font-family="Lato, sans-serif" font-weight="900" font-size="36" fill="#344759" text-anchor="middle">74%</text>
-            <text x="130" y="196" font-family="Lato, sans-serif" font-size="11" fill="#6C7A89" text-anchor="middle">Currently Occupied</text>
+            <!-- Gauge -->
+            <circle cx="130" cy="182" r="34" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="6"/>
+            <circle cx="130" cy="182" r="34" fill="none" stroke="#3b82f6" stroke-width="6" stroke-dasharray="158 214" stroke-linecap="round" transform="rotate(-90 130 182)"/>
+            <text x="130" y="186" font-family="Lato, sans-serif" font-weight="800" font-size="22" fill="#fff" text-anchor="middle">74%</text>
+            <text x="130" y="200" font-family="Lato, sans-serif" font-size="8" fill="rgba(255,255,255,0.4)" text-anchor="middle">Bezetting</text>
 
-            <!-- Status bar -->
-            <rect x="34" y="210" width="192" height="10" rx="5" fill="#E8ECF0"/>
-            <rect x="34" y="210" width="142" height="10" rx="5" fill="#3A7D6A"/>
+            <!-- Status pill -->
+            <rect x="88" y="224" width="84" height="20" rx="10" fill="rgba(59,130,246,0.15)"/>
+            <text x="130" y="237" font-family="Lato, sans-serif" font-size="9" fill="#60a5fa" text-anchor="middle" font-weight="700">NORMAAL</text>
 
-            <!-- Status text with icon -->
-            <rect x="66" y="232" width="128" height="28" rx="14" fill="rgba(74,155,127,0.1)"/>
-            <circle cx="84" cy="246" r="5" fill="#3A7D6A"/>
-            <text x="96" y="250" font-family="Lato, sans-serif" font-weight="700" font-size="12" fill="#3A7D6A">Moderately Busy</text>
+            <!-- Count bars -->
+            <text x="30" y="264" font-family="Lato, sans-serif" font-size="8" fill="rgba(255,255,255,0.35)">Aanwezig</text>
+            <rect x="30" y="268" width="200" height="4" rx="2" fill="rgba(255,255,255,0.06)"/>
+            <rect x="30" y="268" width="148" height="4" rx="2" fill="#3b82f6"/>
+            <text x="230" y="274" font-family="Lato, sans-serif" font-size="8" fill="rgba(255,255,255,0.4)" text-anchor="end">186</text>
 
-            <!-- Quick info -->
-            <line x1="34" y1="272" x2="226" y2="272" stroke="#E8ECF0" stroke-width="1"/>
-            <text x="34" y="290" font-family="Lato, sans-serif" font-size="10" fill="#6C7A89">Peak expected:</text>
-            <text x="226" y="290" font-family="Lato, sans-serif" font-size="10" fill="#344759" font-weight="700" text-anchor="end">12:15 – 13:00</text>
-            <text x="34" y="308" font-family="Lato, sans-serif" font-size="10" fill="#6C7A89">Quietest at:</text>
-            <text x="226" y="308" font-family="Lato, sans-serif" font-size="10" fill="#3A7D6A" font-weight="700" text-anchor="end">14:00 – 15:00</text>
+            <text x="30" y="288" font-family="Lato, sans-serif" font-size="8" fill="rgba(255,255,255,0.35)">Capaciteit</text>
+            <rect x="30" y="292" width="200" height="4" rx="2" fill="rgba(255,255,255,0.06)"/>
+            <rect x="30" y="292" width="200" height="4" rx="2" fill="rgba(255,255,255,0.1)"/>
+            <text x="230" y="298" font-family="Lato, sans-serif" font-size="8" fill="rgba(255,255,255,0.4)" text-anchor="end">250</text>
+
+            <!-- Compare text -->
+            <text x="130" y="322" font-family="Lato, sans-serif" font-size="8" fill="rgba(255,255,255,0.3)" text-anchor="middle">Zoals gewoonlijk voor dit uur</text>
 
             <!-- More page content below widget -->
-            <rect x="14" y="345" width="232" height="10" rx="3" fill="#E2E5E9"/>
-            <rect x="14" y="361" width="160" height="10" rx="3" fill="#E2E5E9"/>
-            <rect x="14" y="377" width="200" height="10" rx="3" fill="#E2E5E9"/>
+            <rect x="14" y="352" width="232" height="10" rx="3" fill="#E2E5E9"/>
+            <rect x="14" y="368" width="160" height="10" rx="3" fill="#E2E5E9"/>
+            <rect x="14" y="384" width="200" height="10" rx="3" fill="#E2E5E9"/>
           </svg>
         </div>
       </div>
 
       <div class="features-grid">
         <div class="feature-card cp fade-up">
-          <div class="feature-icon" style="background: rgba(74, 155, 127, 0.1);">
+          <div class="feature-icon" style="background: rgba(59, 130, 246, 0.1);">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--caterpulse)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           </div>
-          <h3>Live Occupancy Dashboard</h3>
-          <p>A dedicated dashboard showing real-time occupancy per location. See how many guests are present, how full the space is, and how the current hour compares to normal.</p>
+          <h3 data-i18n="cp_f1_title">Live Occupancy Dashboard</h3>
+          <p data-i18n="cp_f1_desc">A dedicated dashboard showing real-time occupancy per location. See how many guests are present, how full the space is, and how the current hour compares to normal.</p>
         </div>
         <div class="feature-card cp fade-up">
-          <div class="feature-icon" style="background: rgba(74, 155, 127, 0.1);">
+          <div class="feature-icon" style="background: rgba(59, 130, 246, 0.1);">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--caterpulse)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
           </div>
-          <h3>Embeddable Widget</h3>
-          <p>A compact widget you can embed on your company intranet, internal website, or digital signage. Employees see at a glance whether the restaurant is quiet, busy, or full.</p>
+          <h3 data-i18n="cp_f2_title">Embeddable Widget</h3>
+          <p data-i18n="cp_f2_desc">A compact widget you can embed on your company intranet, internal website, or digital signage. Employees see at a glance whether the restaurant is quiet, busy, or full.</p>
         </div>
         <div class="feature-card cp fade-up">
-          <div class="feature-icon" style="background: rgba(74, 155, 127, 0.1);">
+          <div class="feature-icon" style="background: rgba(59, 130, 246, 0.1);">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--caterpulse)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
           </div>
-          <h3>Broadcast to Employees</h3>
-          <p>Use Caterpulse to inform employees about current occupancy levels. Help spread lunch traffic, reduce queues, and improve the guest experience in your building.</p>
+          <h3 data-i18n="cp_f3_title">Broadcast to Employees</h3>
+          <p data-i18n="cp_f3_desc">Use Caterpulse to inform employees about current occupancy levels. Help spread lunch traffic, reduce queues, and improve the guest experience in your building.</p>
         </div>
         <div class="feature-card cp fade-up">
-          <div class="feature-icon" style="background: rgba(74, 155, 127, 0.1);">
+          <div class="feature-icon" style="background: rgba(59, 130, 246, 0.1);">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--caterpulse)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           </div>
-          <h3>Per-location Insights</h3>
-          <p>Each catering location gets its own occupancy view. Compare live status across sites and understand which locations are under pressure at any given moment.</p>
+          <h3 data-i18n="cp_f4_title">Per-location Insights</h3>
+          <p data-i18n="cp_f4_desc">Each catering location gets its own occupancy view. Compare live status across sites and understand which locations are under pressure at any given moment.</p>
         </div>
         <div class="feature-card cp fade-up">
-          <div class="feature-icon" style="background: rgba(74, 155, 127, 0.1);">
+          <div class="feature-icon" style="background: rgba(59, 130, 246, 0.1);">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--caterpulse)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
-          <h3>Lightweight & Easy to Deploy</h3>
-          <p>Caterpulse is designed to be simple. Connect a presence sensor, configure your location, and you're live. No heavy infrastructure, no complex setup.</p>
+          <h3 data-i18n="cp_f5_title">Lightweight &amp; Easy to Deploy</h3>
+          <p data-i18n="cp_f5_desc">Caterpulse is designed to be simple. Connect a presence sensor, configure your location, and you're live. No heavy infrastructure, no complex setup.</p>
         </div>
         <div class="feature-card cp fade-up">
-          <div class="feature-icon" style="background: rgba(74, 155, 127, 0.1);">
+          <div class="feature-icon" style="background: rgba(59, 130, 246, 0.1);">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--caterpulse)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           </div>
-          <h3>Better Guest Experience</h3>
-          <p>When employees know which restaurant is quieter, they naturally spread out. Less congestion, shorter queues, and a more pleasant lunch break for everyone.</p>
+          <h3 data-i18n="cp_f6_title">Better Guest Experience</h3>
+          <p data-i18n="cp_f6_desc">When employees know which restaurant is quieter, they naturally spread out. Less congestion, shorter queues, and a more pleasant lunch break for everyone.</p>
         </div>
       </div>
 
       <div class="section-cta fade-up">
-        <a href="mailto:frederik@arcanta.io?subject=Caterpulse%20info%20request" class="btn btn-primary" style="background: var(--caterpulse);">Learn More About Caterpulse</a>
-        <span class="note">See how Caterpulse works in a live environment.</span>
+        <a href="mailto:frederik@arcanta.io?subject=Caterpulse%20info%20request" class="btn btn-primary" style="background: var(--caterpulse);" data-i18n="cp_cta">Learn More About Caterpulse</a>
+        <span class="note" data-i18n="cp_cta_note">See how Caterpulse works in a live environment.</span>
       </div>
     </div>
   </section>
@@ -1182,15 +1210,15 @@
   <!-- BETTER TOGETHER -->
   <section class="together" id="together">
     <div class="container">
-      <span class="section-label fade-up">Better Together</span>
-      <h2 class="section-title fade-up">Two tools, one complete picture</h2>
-      <p class="together-content fade-up">Arcanta and Caterpulse are two separate dashboards that each work independently. But they're designed to complement each other. Caterpulse occupancy data can be integrated into Arcanta periodically — enabling deep historical analysis by combining presence data with POS transactions.</p>
+      <span class="section-label fade-up" data-i18n="tog_label">Better Together</span>
+      <h2 class="section-title fade-up" data-i18n="tog_title">Two tools, one complete picture</h2>
+      <p class="together-content fade-up" data-i18n="tog_desc">Arcanta and Caterpulse are two separate dashboards that each work independently. But they're designed to complement each other. Caterpulse occupancy data can be integrated into Arcanta periodically — enabling deep historical analysis by combining presence data with POS transactions.</p>
 
       <div class="together-grid fade-up">
         <div class="together-card">
           <h3>Caterpulse</h3>
-          <p>Measures occupancy in real time. Shows live status to employees and facility managers. Helps spread guest traffic and reduce congestion on the spot.</p>
-          <span class="tag cp">Real-time</span>
+          <p data-i18n="tog_cp_desc">Measures occupancy in real time. Shows live status to employees and facility managers. Helps spread guest traffic and reduce congestion on the spot.</p>
+          <span class="tag cp" data-i18n="tog_cp_tag">Real-time</span>
         </div>
         <div class="together-arrow">
           <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
@@ -1199,28 +1227,28 @@
             <line x1="40" y1="24" x2="8" y2="24"/>
             <polyline points="16 16 8 24 16 32"/>
           </svg>
-          <span>Data flow</span>
+          <span data-i18n="tog_flow">Data flow</span>
         </div>
         <div class="together-card">
           <h3>Arcanta</h3>
-          <p>Imports Caterpulse occupancy data periodically and analyses it alongside POS transactions. Uncovers trends, patterns, and correlations that only surface when you combine presence with sales data over time.</p>
-          <span class="tag arcanta">Periodic deep analysis</span>
+          <p data-i18n="tog_arc_desc">Imports Caterpulse occupancy data periodically and analyses it alongside POS transactions. Uncovers trends, patterns, and correlations that only surface when you combine presence with sales data over time.</p>
+          <span class="tag arcanta" data-i18n="tog_arc_tag">Periodic deep analysis</span>
         </div>
       </div>
 
       <div style="margin-top: 3rem;" class="fade-up">
         <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem;">
           <div style="background: rgba(255,255,255,0.06); border-radius: var(--radius); padding: 1.5rem; border: 1px solid rgba(255,255,255,0.08);">
-            <h4 style="color: var(--white); font-size: 1rem; margin-bottom: 0.5rem;">Correlate occupancy &amp; sales</h4>
-            <p style="color: rgba(255,255,255,0.55); font-size: 0.85rem; line-height: 1.6;">See how occupancy levels relate to revenue, average spend, and product choices over weeks and months.</p>
+            <h4 style="color: var(--white); font-size: 1rem; margin-bottom: 0.5rem;" data-i18n="tog_b1_title">Correlate occupancy &amp; sales</h4>
+            <p style="color: rgba(255,255,255,0.55); font-size: 0.85rem; line-height: 1.6;" data-i18n="tog_b1_desc">See how occupancy levels relate to revenue, average spend, and product choices over weeks and months.</p>
           </div>
           <div style="background: rgba(255,255,255,0.06); border-radius: var(--radius); padding: 1.5rem; border: 1px solid rgba(255,255,255,0.08);">
-            <h4 style="color: var(--white); font-size: 1rem; margin-bottom: 0.5rem;">Validate capacity planning</h4>
-            <p style="color: rgba(255,255,255,0.55); font-size: 0.85rem; line-height: 1.6;">Use historical occupancy data in Arcanta to plan seating layouts, staffing schedules, and service windows.</p>
+            <h4 style="color: var(--white); font-size: 1rem; margin-bottom: 0.5rem;" data-i18n="tog_b2_title">Validate capacity planning</h4>
+            <p style="color: rgba(255,255,255,0.55); font-size: 0.85rem; line-height: 1.6;" data-i18n="tog_b2_desc">Use historical occupancy data in Arcanta to plan seating layouts, staffing schedules, and service windows.</p>
           </div>
           <div style="background: rgba(255,255,255,0.06); border-radius: var(--radius); padding: 1.5rem; border: 1px solid rgba(255,255,255,0.08);">
-            <h4 style="color: var(--white); font-size: 1rem; margin-bottom: 0.5rem;">Seamless data integration</h4>
-            <p style="color: rgba(255,255,255,0.55); font-size: 0.85rem; line-height: 1.6;">Caterpulse data can be imported into Arcanta periodically, enriching your analytical dashboard with occupancy history.</p>
+            <h4 style="color: var(--white); font-size: 1rem; margin-bottom: 0.5rem;" data-i18n="tog_b3_title">Seamless data integration</h4>
+            <p style="color: rgba(255,255,255,0.55); font-size: 0.85rem; line-height: 1.6;" data-i18n="tog_b3_desc">Caterpulse data can be imported into Arcanta periodically, enriching your analytical dashboard with occupancy history.</p>
           </div>
         </div>
       </div>
@@ -1232,20 +1260,20 @@
     <div class="stats-grid fade-up">
       <div class="stat-item">
         <div class="stat-number">50K+</div>
-        <div class="stat-label">Guest transactions analysed</div>
+        <div class="stat-label" data-i18n="stat_1">Guest transactions analysed</div>
       </div>
       <div class="stat-item">
         <div class="stat-number">15+</div>
-        <div class="stat-label">KPIs tracked in real time</div>
+        <div class="stat-label" data-i18n="stat_2">KPIs tracked in real time</div>
       </div>
       <div class="stat-item">
         <div class="stat-number">3</div>
-        <div class="stat-label">Languages supported</div>
+        <div class="stat-label" data-i18n="stat_3">Languages supported</div>
         <div class="stat-sub">EN / NL / FR</div>
       </div>
       <div class="stat-item">
-        <div class="stat-number">&lt;5 min</div>
-        <div class="stat-label">From data upload to insights</div>
+        <div class="stat-number" data-i18n="stat_4_num">&lt;5 min</div>
+        <div class="stat-label" data-i18n="stat_4">From data upload to insights</div>
       </div>
     </div>
   </div>
@@ -1254,9 +1282,9 @@
   <section class="use-cases">
     <div class="container">
       <div style="text-align: center;">
-        <span class="section-label fade-up">Built For</span>
-        <h2 class="section-title fade-up">Catering analytics for every captive environment</h2>
-        <p class="section-subtitle fade-up" style="margin: 0 auto;">Wherever there's a captive audience and a catering operation, Arcanta and Caterpulse help facility managers make better decisions.</p>
+        <span class="section-label fade-up" data-i18n="uc_label">Built For</span>
+        <h2 class="section-title fade-up" data-i18n="uc_title">Catering analytics for every captive environment</h2>
+        <p class="section-subtitle fade-up" style="margin: 0 auto;" data-i18n="uc_subtitle">Wherever there's a captive audience and a catering operation, Arcanta and Caterpulse help facility managers make better decisions.</p>
       </div>
 
       <div class="use-cases-grid">
@@ -1264,36 +1292,36 @@
           <div class="use-case-icon">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
           </div>
-          <h3>Corporate Offices</h3>
-          <p>Track participation rates, benchmark your caterer's performance, and ensure the company restaurant delivers value for employees and budget holders alike.</p>
+          <h3 data-i18n="uc1_title">Corporate Offices</h3>
+          <p data-i18n="uc1_desc">Track participation rates, benchmark your caterer's performance, and ensure the company restaurant delivers value for employees and budget holders alike.</p>
           <div class="use-case-tags">
-            <span class="use-case-tag">Staff restaurants</span>
-            <span class="use-case-tag">Multi-floor</span>
-            <span class="use-case-tag">SLA tracking</span>
+            <span class="use-case-tag" data-i18n="uc1_t1">Staff restaurants</span>
+            <span class="use-case-tag" data-i18n="uc1_t2">Multi-floor</span>
+            <span class="use-case-tag" data-i18n="uc1_t3">SLA tracking</span>
           </div>
         </div>
         <div class="use-case-card fade-up">
           <div class="use-case-icon" style="background: linear-gradient(135deg, var(--caterpulse), var(--caterpulse-light));">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 12 3 12 0v-5"/></svg>
           </div>
-          <h3>University Campuses</h3>
-          <p>Manage multiple catering locations across a campus. Understand peak hours, spread traffic between cafeterias, and plan capacity for exam periods and events.</p>
+          <h3 data-i18n="uc2_title">University Campuses</h3>
+          <p data-i18n="uc2_desc">Manage multiple catering locations across a campus. Understand peak hours, spread traffic between cafeterias, and plan capacity for exam periods and events.</p>
           <div class="use-case-tags">
-            <span class="use-case-tag">Multi-site</span>
-            <span class="use-case-tag">Peak planning</span>
-            <span class="use-case-tag">Traffic spread</span>
+            <span class="use-case-tag" data-i18n="uc2_t1">Multi-site</span>
+            <span class="use-case-tag" data-i18n="uc2_t2">Peak planning</span>
+            <span class="use-case-tag" data-i18n="uc2_t3">Traffic spread</span>
           </div>
         </div>
         <div class="use-case-card fade-up">
           <div class="use-case-icon">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
           </div>
-          <h3>Hospitals &amp; Government</h3>
-          <p>In environments where staff schedules are fixed and catering is essential, data-driven insights help optimise service windows, reduce waste, and improve satisfaction.</p>
+          <h3 data-i18n="uc3_title">Hospitals &amp; Government</h3>
+          <p data-i18n="uc3_desc">In environments where staff schedules are fixed and catering is essential, data-driven insights help optimise service windows, reduce waste, and improve satisfaction.</p>
           <div class="use-case-tags">
-            <span class="use-case-tag">Fixed schedules</span>
-            <span class="use-case-tag">Waste reduction</span>
-            <span class="use-case-tag">Compliance</span>
+            <span class="use-case-tag" data-i18n="uc3_t1">Fixed schedules</span>
+            <span class="use-case-tag" data-i18n="uc3_t2">Waste reduction</span>
+            <span class="use-case-tag" data-i18n="uc3_t3">Compliance</span>
           </div>
         </div>
       </div>
@@ -1303,24 +1331,24 @@
   <!-- CTA -->
   <section class="cta" id="contact">
     <div class="container">
-      <h2 class="fade-up">Ready to take control of your catering?</h2>
-      <p class="fade-up">Whether you need deep catering analytics, live occupancy monitoring, or both — we'd love to show you what's possible. Get in touch for a demo or an informal conversation.</p>
+      <h2 class="fade-up" data-i18n="cta_title">Ready to take control of your catering?</h2>
+      <p class="fade-up" data-i18n="cta_desc">Whether you need deep catering analytics, live occupancy monitoring, or both — we'd love to show you what's possible. Get in touch for a demo or an informal conversation.</p>
       <div class="cta-buttons fade-up">
-        <a href="mailto:frederik@arcanta.io?subject=Arcanta%20%26%20Caterpulse%20-%20demo%20request" class="btn btn-primary">Get in Touch</a>
+        <a href="mailto:frederik@arcanta.io?subject=Arcanta%20%26%20Caterpulse%20-%20demo%20request" class="btn btn-primary" data-i18n="cta_btn">Get in Touch</a>
       </div>
       <p class="fade-up" style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-light);">frederik@arcanta.io</p>
       <div class="cta-trust fade-up">
         <div class="cta-trust-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A9B7F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-          No credit card required
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span data-i18n="trust_1">No credit card required</span>
         </div>
         <div class="cta-trust-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A9B7F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          Your data stays yours
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span data-i18n="trust_2">Your data stays yours</span>
         </div>
         <div class="cta-trust-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4A9B7F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          Live in under 5 minutes
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span data-i18n="trust_3">Live in under 5 minutes</span>
         </div>
       </div>
     </div>
@@ -1334,11 +1362,11 @@
         <p style="margin-top: 0.25rem;">&copy; 2026 Arcanta. All rights reserved.</p>
       </div>
       <div class="footer-links">
-        <a href="#about">About</a>
+        <a href="#about" data-i18n="nav_about">About</a>
         <a href="#arcanta">Arcanta</a>
         <a href="#caterpulse">Caterpulse</a>
-        <a href="#together">Together</a>
-        <a href="#contact">Contact</a>
+        <a href="#together" data-i18n="nav_together">Together</a>
+        <a href="#contact" data-i18n="nav_contact_footer">Contact</a>
       </div>
     </div>
   </footer>
@@ -1359,6 +1387,166 @@
     window.addEventListener('load', () => {
       document.querySelector('.hero .fade-up').classList.add('visible');
     });
+
+    /* ── i18n ───────────────────────────────────────── */
+    const T = {
+      nl: {
+        nav_about: "Over ons", nav_together: "Samen", nav_contact: "Contacteer ons", nav_contact_footer: "Contact",
+        hero_badge: "Voor Facility Managers",
+        hero_title: "Neem controle over uw <em>cateringactiviteiten</em>",
+        hero_desc: "Twee tools, \u00e9\u00e9n missie. Arcanta levert diepgaande cateringanalyse via periodieke data-upload. Caterpulse volgt de bezetting in real time. Samen geven ze facility managers volledig zicht op prestaties.",
+        hero_cta: "Demo aanvragen", hero_learn: "Meer info",
+        about_label: "Waarom wij bestaan", about_title: "Gebouwd voor catering in captive omgevingen",
+        about_subtitle: "Bedrijfsrestaurants, campuskantines, ziekenhuiscafetaria\u2019s, overheidsgebouwen \u2014 catering in een captive omgeving is een wereld apart. Uw gasten kiezen niet om te komen. Ze zijn er al.",
+        about_challenge: "De uitdaging is niet gasten aantrekken \u2014 maar ze goed bedienen",
+        about_p1: "Als facility manager moet u weten hoeveel gasten er komen, wanneer ze arriveren, wat ze eten en of de ruimte het aankan. U hebt data nodig om cateraars verantwoordelijk te houden en om morgen te plannen \u2014 niet alleen vandaag te reageren.",
+        about_p2: "Daarom hebben we twee complementaire tools gebouwd: <strong>Arcanta</strong> voor diepgaande, periodieke analyse van cateringprestaties, en <strong>Caterpulse</strong> voor real-time bezettingsmonitoring. Elk werkt op zichzelf. Samen zijn ze nog krachtiger.",
+        mock_guests: "Gasten vandaag", mock_guests_change: "+8,5% vs vorige week",
+        mock_seat: "Stoelbezetting", mock_seat_change: "Piek om 12:30",
+        mock_spend: "Gem. besteding", mock_spend_change: "+3,2% groei",
+        mock_participation: "Participatie", mock_participation_change: "van gebouwbezetting",
+        tag_captive: "Captive catering", tag_company: "Bedrijfsrestaurants", tag_multi: "Multi-site", tag_campus: "Campus & ziekenhuizen",
+        how_label: "Hoe het werkt", how_title: "Operationeel in drie eenvoudige stappen",
+        how_subtitle: "Geen datateam, geen complexe setup. Arcanta en Caterpulse zijn ontworpen voor facility managers die resultaten willen \u2014 geen IT-projecten.",
+        step1_title: "Upload uw data", step1_desc: "Exporteer POS-transacties of bezettingsdata uit uw bestaande systemen. Upload CSV- of Excel-bestanden \u2014 onze slimme mapper doet de rest.",
+        step2_title: "Verken inzichten", step2_desc: "Interactieve dashboards onthullen trends, patronen en afwijkingen. Zoom in op KPI\u2019s, heatmaps en productanalyse \u2014 alles in uw browser.",
+        step3_title: "Onderneem actie", step3_desc: "Gebruik onderbouwde inzichten om menu\u2019s te optimaliseren, cateraars verantwoordelijk te houden en de gastervaring op al uw locaties te verbeteren.",
+        arc_title: "Uw analytisch dashboard voor cateringprestaties",
+        arc_desc: "Arcanta is een self-service analyseplatform waar facility managers periodiek POS- en bezettingsdata uploaden om KPI\u2019s te volgen, trends te ontdekken en diepgaande analyses uit te voeren. Geen datateam nodig \u2014 upload, koppel uw kolommen en ga aan de slag.",
+        arc_f1_title: "Self-service data-upload", arc_f1_desc: "Importeer POS-transacties en bezettingsdata via CSV of Excel. Slimme kolomkoppeling laat u uw data aan de juiste velden koppelen \u2014 zonder IT-ondersteuning.",
+        arc_f2_title: "KPI-tracking & trends", arc_f2_desc: "Volg gastentellingen, omzet, gemiddelde besteding en stoelbezetting in de tijd. Herken weekritmes, seizoenspatronen en afwijkingen in \u00e9\u00e9n oogopslag.",
+        arc_f3_title: "Menu- & productanalyse", arc_f3_desc: "Begrijp welke gerechten presteren, welke combo\u2019s gasten verkiezen en hoe de productmix evolueert. Gebruik harde data om het menu samen met uw cateraar te optimaliseren.",
+        arc_f4_title: "Diepgaande dashboards", arc_f4_desc: "Heatmaps, intraday-grafieken, vergelijkingen en drilldowns. Ontworpen voor facility managers die verder willen gaan dan oppervlakkige rapporten.",
+        arc_f5_title: "Verantwoording cateraar", arc_f5_desc: "Vertrouw niet alleen op de rapporten van uw cateraar. Arcanta geeft u onafhankelijke, verifieerbare data om prestaties te benchmarken en onderbouwde SLA-gesprekken te voeren.",
+        arc_f6_title: "Multi-site beheer", arc_f6_desc: "Beheer \u00e9\u00e9n bedrijfsrestaurant of tientallen locaties. Rolgebaseerde toegang zorgt dat de juiste mensen de juiste data zien \u2014 van locatieniveau tot directiekamer.",
+        arc_cta: "Vraag een live demo aan", arc_cta_note: "Bekijk het Arcanta-dashboard met uw eigen data.",
+        cp_badge: "In ontwikkeling \u2014 Binnenkort beschikbaar",
+        cp_title: "Real-time bezettingsmeting voor uw cateringlocaties",
+        cp_desc: "Caterpulse is een lichtgewicht bezettingsmeetsysteem dat u \u2014 en uw medewerkers \u2014 laat zien hoe druk uw restaurant nu is. Met een eigen dashboard, inbedbare widget en inzichten per locatie helpt het gasten en managers slimmere beslissingen te nemen op het moment zelf.",
+        cp_f1_title: "Live bezettingsdashboard", cp_f1_desc: "Een dedicated dashboard met real-time bezetting per locatie. Zie hoeveel gasten aanwezig zijn, hoe vol de ruimte is en hoe het huidige uur zich verhoudt tot normaal.",
+        cp_f2_title: "Inbedbare widget", cp_f2_desc: "Een compacte widget die u kunt inbedden op uw bedrijfsintranet, interne website of digital signage. Medewerkers zien in \u00e9\u00e9n oogopslag of het restaurant rustig, druk of vol is.",
+        cp_f3_title: "Communicatie naar medewerkers", cp_f3_desc: "Gebruik Caterpulse om medewerkers te informeren over actuele bezettingsniveaus. Help lunchverkeer te spreiden, wachtrijen te verkorten en de gastervaring in uw gebouw te verbeteren.",
+        cp_f4_title: "Inzichten per locatie", cp_f4_desc: "Elke cateringlocatie krijgt een eigen bezettingsweergave. Vergelijk de live status tussen locaties en begrijp welke locaties op welk moment onder druk staan.",
+        cp_f5_title: "Lichtgewicht & eenvoudig te deployen", cp_f5_desc: "Caterpulse is ontworpen om eenvoudig te zijn. Sluit een aanwezigheidssensor aan, configureer uw locatie en u bent live. Geen zware infrastructuur, geen complexe setup.",
+        cp_f6_title: "Betere gastervaring", cp_f6_desc: "Wanneer medewerkers weten welk restaurant rustiger is, spreiden ze zich vanzelf. Minder drukte, kortere wachtrijen en een aangenamere lunchpauze voor iedereen.",
+        cp_cta: "Meer info over Caterpulse", cp_cta_note: "Ontdek hoe Caterpulse werkt in een live omgeving.",
+        wl_dashboard: "Live dashboard", wl_widget: "Inbedbare widget",
+        tog_label: "Beter samen", tog_title: "Twee tools, \u00e9\u00e9n compleet beeld",
+        tog_desc: "Arcanta en Caterpulse zijn twee aparte dashboards die elk onafhankelijk werken. Maar ze zijn ontworpen om elkaar aan te vullen. Caterpulse-bezettingsdata kan periodiek ge\u00efntegreerd worden in Arcanta \u2014 voor diepgaande historische analyse door aanwezigheidsdata te combineren met POS-transacties.",
+        tog_cp_desc: "Meet bezetting in real time. Toont live status aan medewerkers en facility managers. Helpt gastverkeer te spreiden en drukte te verminderen.",
+        tog_cp_tag: "Real-time", tog_flow: "Dataflow",
+        tog_arc_desc: "Importeert Caterpulse-bezettingsdata periodiek en analyseert deze naast POS-transacties. Ontdekt trends, patronen en correlaties die alleen zichtbaar worden door aanwezigheids- en verkoopdata te combineren in de tijd.",
+        tog_arc_tag: "Periodieke diepteanalyse",
+        tog_b1_title: "Correleer bezetting & omzet", tog_b1_desc: "Zie hoe bezettingsniveaus zich verhouden tot omzet, gemiddelde besteding en productkeuzes over weken en maanden.",
+        tog_b2_title: "Valideer capaciteitsplanning", tog_b2_desc: "Gebruik historische bezettingsdata in Arcanta om zitplaatsindelingen, personeelsschema\u2019s en servicevensters te plannen.",
+        tog_b3_title: "Naadloze data-integratie", tog_b3_desc: "Caterpulse-data kan periodiek ge\u00efmporteerd worden in Arcanta, waardoor uw analytisch dashboard verrijkt wordt met bezettingsgeschiedenis.",
+        stat_1: "Gasttransacties geanalyseerd", stat_2: "KPI\u2019s real-time gevolgd", stat_3: "Talen ondersteund",
+        stat_4_num: "<5 min", stat_4: "Van data-upload tot inzichten",
+        uc_label: "Gebouwd voor", uc_title: "Cateringanalyse voor elke captive omgeving",
+        uc_subtitle: "Overal waar een captive publiek en een cateringoperatie samenkomen, helpen Arcanta en Caterpulse facility managers betere beslissingen te nemen.",
+        uc1_title: "Bedrijfskantoren", uc1_desc: "Volg participatiecijfers, benchmark de prestaties van uw cateraar en zorg dat het bedrijfsrestaurant waarde levert voor medewerkers en budgethouders.",
+        uc1_t1: "Bedrijfsrestaurants", uc1_t2: "Multi-verdieping", uc1_t3: "SLA-tracking",
+        uc2_title: "Universiteitscampussen", uc2_desc: "Beheer meerdere cateringlocaties op een campus. Begrijp piekuren, spreid verkeer tussen cafetaria\u2019s en plan capaciteit voor examenperiodes en evenementen.",
+        uc2_t1: "Multi-site", uc2_t2: "Piekplanning", uc2_t3: "Verkeersspreiding",
+        uc3_title: "Ziekenhuizen & overheid", uc3_desc: "In omgevingen waar personeelsroosters vast liggen en catering essentieel is, helpen datagedreven inzichten om servicevensters te optimaliseren, verspilling te verminderen en tevredenheid te verbeteren.",
+        uc3_t1: "Vaste roosters", uc3_t2: "Verspillingsreductie", uc3_t3: "Compliance",
+        cta_title: "Klaar om controle te nemen over uw catering?",
+        cta_desc: "Of u nu diepgaande cateringanalyse, live bezettingsmonitoring of beide nodig hebt \u2014 we laten u graag zien wat mogelijk is. Neem contact op voor een demo of een vrijblijvend gesprek.",
+        cta_btn: "Neem contact op",
+        trust_1: "Geen creditcard nodig", trust_2: "Uw data blijft van u", trust_3: "Live in minder dan 5 minuten"
+      },
+      fr: {
+        nav_about: "\u00c0 propos", nav_together: "Ensemble", nav_contact: "Nous contacter", nav_contact_footer: "Contact",
+        hero_badge: "Pour les Facility Managers",
+        hero_title: "Prenez le contr\u00f4le de vos <em>op\u00e9rations de restauration</em>",
+        hero_desc: "Deux outils, une mission. Arcanta fournit des analyses approfondies de restauration via l\u2019import p\u00e9riodique de donn\u00e9es. Caterpulse suit l\u2019occupation en temps r\u00e9el. Ensemble, ils offrent aux facility managers une visibilit\u00e9 compl\u00e8te sur les performances.",
+        hero_cta: "Demander une d\u00e9mo", hero_learn: "En savoir plus",
+        about_label: "Pourquoi nous existons", about_title: "Con\u00e7u pour la restauration en environnement captif",
+        about_subtitle: "Restaurants d\u2019entreprise, cantines de campus, caf\u00e9t\u00e9rias d\u2019h\u00f4pitaux, b\u00e2timents gouvernementaux \u2014 la restauration en environnement captif est un monde \u00e0 part. Vos convives ne choisissent pas de venir. Ils sont d\u00e9j\u00e0 l\u00e0.",
+        about_challenge: "Le d\u00e9fi n\u2019est pas d\u2019attirer les convives \u2014 c\u2019est de bien les servir",
+        about_p1: "En tant que facility manager, vous devez savoir combien de convives se pr\u00e9sentent, quand ils arrivent, ce qu\u2019ils mangent et si l\u2019espace peut absorber la charge. Vous avez besoin de donn\u00e9es pour responsabiliser vos traiteurs et planifier demain \u2014 pas seulement r\u00e9agir aujourd\u2019hui.",
+        about_p2: "C\u2019est pourquoi nous avons cr\u00e9\u00e9 deux outils compl\u00e9mentaires : <strong>Arcanta</strong> pour l\u2019analyse p\u00e9riodique approfondie des performances de restauration, et <strong>Caterpulse</strong> pour le suivi de l\u2019occupation en temps r\u00e9el. Chacun fonctionne ind\u00e9pendamment. Ensemble, ils sont encore plus puissants.",
+        mock_guests: "Convives aujourd\u2019hui", mock_guests_change: "+8,5% vs semaine derni\u00e8re",
+        mock_seat: "Utilisation places", mock_seat_change: "Pic \u00e0 12h30",
+        mock_spend: "D\u00e9pense moy.", mock_spend_change: "+3,2% de croissance",
+        mock_participation: "Participation", mock_participation_change: "des occupants du b\u00e2timent",
+        tag_captive: "Restauration captive", tag_company: "Restaurants d\u2019entreprise", tag_multi: "Multi-site", tag_campus: "Campus & h\u00f4pitaux",
+        how_label: "Comment \u00e7a marche", how_title: "Op\u00e9rationnel en trois \u00e9tapes simples",
+        how_subtitle: "Pas d\u2019\u00e9quipe data, pas de configuration complexe. Arcanta et Caterpulse sont con\u00e7us pour les facility managers qui veulent des r\u00e9sultats \u2014 pas des projets IT.",
+        step1_title: "Importez vos donn\u00e9es", step1_desc: "Exportez les transactions POS ou les donn\u00e9es de fr\u00e9quentation de vos syst\u00e8mes existants. Importez des fichiers CSV ou Excel \u2014 notre mappeur intelligent fait le reste.",
+        step2_title: "Explorez les insights", step2_desc: "Des tableaux de bord interactifs r\u00e9v\u00e8lent tendances, sch\u00e9mas et anomalies. Explorez les KPI, heatmaps et analyses produits \u2014 tout dans votre navigateur.",
+        step3_title: "Passez \u00e0 l\u2019action", step3_desc: "Utilisez des insights fond\u00e9s sur les donn\u00e9es pour optimiser les menus, responsabiliser les traiteurs et am\u00e9liorer l\u2019exp\u00e9rience des convives sur l\u2019ensemble de vos sites.",
+        arc_title: "Votre tableau de bord analytique pour la restauration",
+        arc_desc: "Arcanta est une plateforme analytique en self-service o\u00f9 les facility managers importent p\u00e9riodiquement des donn\u00e9es POS et de fr\u00e9quentation pour suivre les KPI, d\u00e9couvrir les tendances et r\u00e9aliser des analyses approfondies. Pas d\u2019\u00e9quipe data \u2014 importez, mappez vos colonnes et c\u2019est parti.",
+        arc_f1_title: "Import de donn\u00e9es en self-service", arc_f1_desc: "Importez les transactions POS et les donn\u00e9es de fr\u00e9quentation via CSV ou Excel. Le mapping intelligent vous permet d\u2019associer vos donn\u00e9es aux bons champs \u2014 sans support IT.",
+        arc_f2_title: "Suivi des KPI & tendances", arc_f2_desc: "Suivez le nombre de convives, le chiffre d\u2019affaires, la d\u00e9pense moyenne et l\u2019utilisation des places dans le temps. Rep\u00e9rez les rythmes hebdomadaires, les sch\u00e9mas saisonniers et les anomalies d\u2019un coup d\u2019\u0153il.",
+        arc_f3_title: "Analyse menu & produits", arc_f3_desc: "Comprenez quels plats performent, quelles combinaisons les convives pr\u00e9f\u00e8rent et comment le mix produits \u00e9volue. Utilisez des donn\u00e9es concr\u00e8tes pour optimiser le menu avec votre traiteur.",
+        arc_f4_title: "Tableaux de bord avanc\u00e9s", arc_f4_desc: "Heatmaps, graphiques intraday, vues comparatives et drilldowns. Con\u00e7us pour les facility managers qui veulent aller au-del\u00e0 des rapports superficiels.",
+        arc_f5_title: "Responsabilisation du traiteur", arc_f5_desc: "Ne vous fiez plus uniquement aux rapports de votre traiteur. Arcanta vous fournit des donn\u00e9es ind\u00e9pendantes et v\u00e9rifiables pour benchmarker les performances et mener des discussions SLA inform\u00e9es.",
+        arc_f6_title: "Gestion multi-site", arc_f6_desc: "G\u00e9rez un restaurant d\u2019entreprise ou des dizaines de sites. L\u2019acc\u00e8s bas\u00e9 sur les r\u00f4les garantit que les bonnes personnes voient les bonnes donn\u00e9es \u2014 du niveau site \u00e0 la direction.",
+        arc_cta: "Demander une d\u00e9mo live", arc_cta_note: "D\u00e9couvrez le tableau de bord Arcanta avec vos propres donn\u00e9es.",
+        cp_badge: "En d\u00e9veloppement \u2014 Bient\u00f4t disponible",
+        cp_title: "Suivi de l\u2019occupation en temps r\u00e9el pour vos sites de restauration",
+        cp_desc: "Caterpulse est un syst\u00e8me l\u00e9ger de mesure d\u2019occupation qui montre \u00e0 vous \u2014 et \u00e0 vos collaborateurs \u2014 \u00e0 quel point votre restaurant est fr\u00e9quent\u00e9 en ce moment. Avec son propre tableau de bord, son widget int\u00e9grable et ses insights par site, il aide convives et managers \u00e0 prendre de meilleures d\u00e9cisions dans l\u2019instant.",
+        cp_f1_title: "Dashboard d\u2019occupation live", cp_f1_desc: "Un tableau de bord d\u00e9di\u00e9 affichant l\u2019occupation en temps r\u00e9el par site. Voyez combien de convives sont pr\u00e9sents, le taux de remplissage et comment l\u2019heure actuelle se compare \u00e0 la normale.",
+        cp_f2_title: "Widget int\u00e9grable", cp_f2_desc: "Un widget compact \u00e0 int\u00e9grer sur votre intranet, site web interne ou affichage digital. Les collaborateurs voient d\u2019un coup d\u2019\u0153il si le restaurant est calme, anim\u00e9 ou complet.",
+        cp_f3_title: "Communication aux collaborateurs", cp_f3_desc: "Utilisez Caterpulse pour informer les collaborateurs des niveaux d\u2019occupation actuels. Aidez \u00e0 r\u00e9partir le trafic du d\u00e9jeuner, r\u00e9duire les files et am\u00e9liorer l\u2019exp\u00e9rience dans votre b\u00e2timent.",
+        cp_f4_title: "Insights par site", cp_f4_desc: "Chaque site de restauration a sa propre vue d\u2019occupation. Comparez le statut en direct entre les sites et identifiez ceux sous pression \u00e0 tout moment.",
+        cp_f5_title: "L\u00e9ger & facile \u00e0 d\u00e9ployer", cp_f5_desc: "Caterpulse est con\u00e7u pour \u00eatre simple. Connectez un capteur de pr\u00e9sence, configurez votre site et vous \u00eates en ligne. Pas d\u2019infrastructure lourde, pas de configuration complexe.",
+        cp_f6_title: "Meilleure exp\u00e9rience convive", cp_f6_desc: "Quand les collaborateurs savent quel restaurant est plus calme, ils se r\u00e9partissent naturellement. Moins de congestion, des files plus courtes et une pause d\u00e9jeuner plus agr\u00e9able pour tous.",
+        cp_cta: "En savoir plus sur Caterpulse", cp_cta_note: "D\u00e9couvrez comment Caterpulse fonctionne en environnement r\u00e9el.",
+        wl_dashboard: "Dashboard live", wl_widget: "Widget int\u00e9grable",
+        tog_label: "Mieux ensemble", tog_title: "Deux outils, une image compl\u00e8te",
+        tog_desc: "Arcanta et Caterpulse sont deux tableaux de bord s\u00e9par\u00e9s qui fonctionnent chacun ind\u00e9pendamment. Mais ils sont con\u00e7us pour se compl\u00e9ter. Les donn\u00e9es d\u2019occupation de Caterpulse peuvent \u00eatre int\u00e9gr\u00e9es p\u00e9riodiquement dans Arcanta \u2014 permettant une analyse historique approfondie en combinant donn\u00e9es de pr\u00e9sence et transactions POS.",
+        tog_cp_desc: "Mesure l\u2019occupation en temps r\u00e9el. Affiche le statut en direct aux collaborateurs et facility managers. Aide \u00e0 r\u00e9partir le trafic des convives et r\u00e9duire la congestion.",
+        tog_cp_tag: "Temps r\u00e9el", tog_flow: "Flux de donn\u00e9es",
+        tog_arc_desc: "Importe p\u00e9riodiquement les donn\u00e9es d\u2019occupation de Caterpulse et les analyse aux c\u00f4t\u00e9s des transactions POS. D\u00e9couvre tendances, sch\u00e9mas et corr\u00e9lations qui n\u2019apparaissent qu\u2019en combinant donn\u00e9es de pr\u00e9sence et de ventes dans le temps.",
+        tog_arc_tag: "Analyse p\u00e9riodique approfondie",
+        tog_b1_title: "Corr\u00e9ler occupation & chiffre d\u2019affaires", tog_b1_desc: "Voyez comment les niveaux d\u2019occupation sont li\u00e9s au chiffre d\u2019affaires, \u00e0 la d\u00e9pense moyenne et aux choix de produits sur des semaines et des mois.",
+        tog_b2_title: "Valider la planification de capacit\u00e9", tog_b2_desc: "Utilisez les donn\u00e9es historiques d\u2019occupation dans Arcanta pour planifier l\u2019agencement des places, les plannings du personnel et les fen\u00eatres de service.",
+        tog_b3_title: "Int\u00e9gration de donn\u00e9es transparente", tog_b3_desc: "Les donn\u00e9es Caterpulse peuvent \u00eatre import\u00e9es p\u00e9riodiquement dans Arcanta, enrichissant votre tableau de bord analytique avec l\u2019historique d\u2019occupation.",
+        stat_1: "Transactions convives analys\u00e9es", stat_2: "KPI suivis en temps r\u00e9el", stat_3: "Langues support\u00e9es",
+        stat_4_num: "<5 min", stat_4: "De l\u2019import de donn\u00e9es aux insights",
+        uc_label: "Con\u00e7u pour", uc_title: "Analyse de restauration pour chaque environnement captif",
+        uc_subtitle: "Partout o\u00f9 il y a un public captif et une op\u00e9ration de restauration, Arcanta et Caterpulse aident les facility managers \u00e0 prendre de meilleures d\u00e9cisions.",
+        uc1_title: "Bureaux d\u2019entreprise", uc1_desc: "Suivez les taux de participation, benchmarkez les performances de votre traiteur et assurez-vous que le restaurant d\u2019entreprise cr\u00e9e de la valeur pour les collaborateurs et les responsables budget.",
+        uc1_t1: "Restaurants du personnel", uc1_t2: "Multi-\u00e9tages", uc1_t3: "Suivi SLA",
+        uc2_title: "Campus universitaires", uc2_desc: "G\u00e9rez plusieurs sites de restauration sur un campus. Comprenez les heures de pointe, r\u00e9partissez le trafic entre les caf\u00e9t\u00e9rias et planifiez la capacit\u00e9 pour les p\u00e9riodes d\u2019examens et les \u00e9v\u00e9nements.",
+        uc2_t1: "Multi-site", uc2_t2: "Planification des pics", uc2_t3: "R\u00e9partition du trafic",
+        uc3_title: "H\u00f4pitaux & secteur public", uc3_desc: "Dans les environnements o\u00f9 les horaires du personnel sont fixes et la restauration essentielle, des insights data-driven aident \u00e0 optimiser les fen\u00eatres de service, r\u00e9duire le gaspillage et am\u00e9liorer la satisfaction.",
+        uc3_t1: "Horaires fixes", uc3_t2: "R\u00e9duction du gaspillage", uc3_t3: "Conformit\u00e9",
+        cta_title: "Pr\u00eat \u00e0 prendre le contr\u00f4le de votre restauration ?",
+        cta_desc: "Que vous ayez besoin d\u2019analyses approfondies de restauration, de suivi d\u2019occupation en temps r\u00e9el, ou des deux \u2014 nous serions ravis de vous montrer ce qui est possible. Contactez-nous pour une d\u00e9mo ou une conversation informelle.",
+        cta_btn: "Nous contacter",
+        trust_1: "Pas de carte de cr\u00e9dit requise", trust_2: "Vos donn\u00e9es restent les v\u00f4tres", trust_3: "En ligne en moins de 5 minutes"
+      }
+    };
+
+    let currentLang = 'en';
+    const originals = {};
+
+    function setLang(lang) {
+      if (lang === currentLang) return;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (!originals[key]) originals[key] = el.getAttribute('data-i18n-html') === 'true' ? el.innerHTML : el.textContent;
+        if (lang === 'en') {
+          if (el.getAttribute('data-i18n-html') === 'true') el.innerHTML = originals[key];
+          else el.textContent = originals[key];
+        } else {
+          const val = T[lang] && T[lang][key];
+          if (val) {
+            if (el.getAttribute('data-i18n-html') === 'true') el.innerHTML = val;
+            else el.textContent = val;
+          }
+        }
+      });
+      currentLang = lang;
+      document.documentElement.lang = lang;
+      document.querySelectorAll('.lang-switch button').forEach(b => {
+        b.classList.toggle('active', b.textContent.trim().toLowerCase() === lang);
+      });
+    }
   </script>
 </body>
 </html>
