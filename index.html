@@ -51,8 +51,8 @@
       max-width: 1200px; margin: 0 auto; padding: 0 2rem;
       display: flex; align-items: center; justify-content: space-between; height: 64px;
     }
-    .nav-logo { font-weight: 900; font-size: 1.25rem; color: var(--primary); letter-spacing: -0.5px; text-decoration: none; }
-    .nav-logo span { color: var(--accent); font-weight: 400; }
+    .nav-logo { text-decoration: none; display: flex; align-items: center; }
+    .nav-logo img { height: 32px; }
     .nav-links { display: flex; gap: 2rem; list-style: none; }
     .nav-links a {
       text-decoration: none; color: var(--text-light); font-weight: 400; font-size: 0.95rem;
@@ -516,7 +516,7 @@
   <!-- NAV -->
   <nav id="nav">
     <div class="nav-inner">
-      <a href="#" class="nav-logo">Arcanta <span>& Caterpulse</span></a>
+      <a href="#" class="nav-logo"><img src="basis logo NB.png" alt="Arcanta"></a>
       <ul class="nav-links">
         <li><a href="#about" data-i18n="nav_about">About</a></li>
         <li><a href="#arcanta">Arcanta</a></li>
